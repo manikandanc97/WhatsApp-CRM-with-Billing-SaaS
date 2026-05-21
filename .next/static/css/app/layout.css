@@ -3801,6 +3801,9 @@ input[type="range"]{
   --tw-bg-opacity: 1;
   background-color: rgb(109 40 217 / var(--tw-bg-opacity, 1));
 }
+.hover\:bg-muted\/50:hover{
+  background-color: hsl(var(--muted) / 0.5);
+}
 .hover\:text-brand-600:hover{
   --tw-text-opacity: 1;
   color: rgb(79 70 229 / var(--tw-text-opacity, 1));

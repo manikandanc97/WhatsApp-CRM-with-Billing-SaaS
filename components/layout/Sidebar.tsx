@@ -95,9 +95,8 @@ export function Sidebar() {
       <div className="px-3 pt-4 pb-3 border-b border-border/60">
         <motion.button
           onClick={() => sidebarOpen && setWsOpen(!wsOpen)}
-          whileHover={{ backgroundColor: 'hsl(var(--muted))' }}
           className={cn(
-            'w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl transition-colors duration-150 group',
+            'w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl transition-colors duration-150 group hover:bg-muted',
             !sidebarOpen && 'justify-center'
           )}
         >

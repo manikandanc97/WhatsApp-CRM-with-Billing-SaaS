@@ -316,8 +316,7 @@ export function TopNavbar() {
                       {notifications.map((n) => (
                         <motion.div
                           key={n.id}
-                          whileHover={{ backgroundColor: 'hsl(var(--muted)/0.5)' }}
-                          className={cn('flex items-start gap-3 px-4 py-3 cursor-pointer transition-colors', !n.read && 'bg-brand-50/50 dark:bg-brand-950/20')}
+                          className={cn('flex items-start gap-3 px-4 py-3 cursor-pointer transition-colors hover:bg-muted/50', !n.read && 'bg-brand-50/50 dark:bg-brand-950/20')}
                           onClick={() => setNotifications(prev => prev.map(x => x.id === n.id ? { ...x, read: true } : x))}
                         >
                           <NotifIcon type={n.type} />
