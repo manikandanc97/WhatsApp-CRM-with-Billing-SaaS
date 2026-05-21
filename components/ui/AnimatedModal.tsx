@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, Variants } from 'framer-motion'
 import { X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useEffect, useState } from 'react'
@@ -28,13 +28,13 @@ const sizeClasses = {
   full: 'max-w-4xl',
 }
 
-const overlayVariants = {
+const overlayVariants: Variants = {
   hidden:  { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 0.2 } },
   exit:    { opacity: 0, transition: { duration: 0.18 } },
 }
 
-const panelVariants = {
+const panelVariants: Variants = {
   hidden:  { opacity: 0, scale: 0.95, y: 14 },
   visible: {
     opacity: 1, scale: 1, y: 0,
