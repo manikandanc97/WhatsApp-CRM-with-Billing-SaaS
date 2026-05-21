@@ -1,0 +1,88 @@
+[
+  {
+    "id": "chat1",
+    "customerId": "c1",
+    "customerName": "Priya Sharma",
+    "customerPhone": "+91 98765 43210",
+    "customerAvatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya",
+    "lastMessage": "Thank you! It was delicious 😍",
+    "lastMessageTime": "2024-12-21T14:30:00Z",
+    "unreadCount": 0,
+    "online": true,
+    "messages": [
+      { "id": "m1", "chatId": "chat1", "content": "Hi! Do you have birthday cakes available for tomorrow?", "sender": "customer", "timestamp": "2024-12-21T10:00:00Z", "read": true, "type": "text" },
+      { "id": "m2", "chatId": "chat1", "content": "Hello Priya! 🎂 Yes, we do! What flavor would you like — Chocolate Truffle, Red Velvet, or Mango Delight?", "sender": "ai", "timestamp": "2024-12-21T10:01:00Z", "read": true, "type": "text" },
+      { "id": "m3", "chatId": "chat1", "content": "Chocolate please! 1 kg for 15 people", "sender": "customer", "timestamp": "2024-12-21T10:03:00Z", "read": true, "type": "text" },
+      { "id": "m4", "chatId": "chat1", "content": "Perfect choice! 🍫 Classic Chocolate Truffle 1kg is ₹850. Would you like pickup or home delivery?", "sender": "ai", "timestamp": "2024-12-21T10:04:00Z", "read": true, "type": "text" },
+      { "id": "m5", "chatId": "chat1", "content": "Delivery please. My address is 42, Rose Garden, Koramangala", "sender": "customer", "timestamp": "2024-12-21T10:06:00Z", "read": true, "type": "text" },
+      { "id": "m6", "chatId": "chat1", "content": "Great! Order confirmed ✅ Your cake will be delivered by 12 PM tomorrow. Total: ₹920 (inc. delivery). Shall I send the invoice?", "sender": "ai", "timestamp": "2024-12-21T10:07:00Z", "read": true, "type": "text" },
+      { "id": "m7", "chatId": "chat1", "content": "Yes please!", "sender": "customer", "timestamp": "2024-12-21T10:08:00Z", "read": true, "type": "text" },
+      { "id": "m8", "chatId": "chat1", "content": "📄 Invoice #SF-2024-002 sent! Payment link included. Thank you for ordering from SweetFlow Bakery! 🧁", "sender": "ai", "timestamp": "2024-12-21T10:09:00Z", "read": true, "type": "invoice" },
+      { "id": "m9", "chatId": "chat1", "content": "Thank you! It was delicious 😍", "sender": "customer", "timestamp": "2024-12-21T14:30:00Z", "read": true, "type": "text" }
+    ]
+  },
+  {
+    "id": "chat2",
+    "customerId": "c2",
+    "customerName": "Rahul Verma",
+    "customerPhone": "+91 99887 76543",
+    "customerAvatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Rahul",
+    "lastMessage": "Is it strictly eggless?",
+    "lastMessageTime": "2024-12-21T13:50:00Z",
+    "unreadCount": 2,
+    "online": false,
+    "messages": [
+      { "id": "m10", "chatId": "chat2", "content": "Hi, do you make eggless cakes?", "sender": "customer", "timestamp": "2024-12-21T13:45:00Z", "read": true, "type": "text" },
+      { "id": "m11", "chatId": "chat2", "content": "Yes Rahul! 🌱 We have a full eggless range. Our Eggless Chocolate Cake is a bestseller at ₹900/kg!", "sender": "ai", "timestamp": "2024-12-21T13:46:00Z", "read": true, "type": "text" },
+      { "id": "m12", "chatId": "chat2", "content": "Is it strictly eggless?", "sender": "customer", "timestamp": "2024-12-21T13:50:00Z", "read": false, "type": "text" }
+    ]
+  },
+  {
+    "id": "chat3",
+    "customerId": "c9",
+    "customerName": "Meera Iyer",
+    "customerPhone": "+91 21098 76543",
+    "customerAvatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Meera",
+    "lastMessage": "Can you add a custom message on all 5 cakes?",
+    "lastMessageTime": "2024-12-21T11:15:00Z",
+    "unreadCount": 1,
+    "online": true,
+    "messages": [
+      { "id": "m13", "chatId": "chat3", "content": "I need 5 Red Velvet cakes for a corporate event tomorrow", "sender": "customer", "timestamp": "2024-12-21T11:00:00Z", "read": true, "type": "text" },
+      { "id": "m14", "chatId": "chat3", "content": "Hi Meera! 🎉 5 Red Velvet cakes — absolutely! That's ₹4,500 total. Do you need delivery or pickup?", "sender": "ai", "timestamp": "2024-12-21T11:02:00Z", "read": true, "type": "text" },
+      { "id": "m15", "chatId": "chat3", "content": "Delivery to Banjara Hills. Also adding 2 photo cakes", "sender": "customer", "timestamp": "2024-12-21T11:10:00Z", "read": true, "type": "text" },
+      { "id": "m16", "chatId": "chat3", "content": "Can you add a custom message on all 5 cakes?", "sender": "customer", "timestamp": "2024-12-21T11:15:00Z", "read": false, "type": "text" }
+    ]
+  },
+  {
+    "id": "chat4",
+    "customerId": "c5",
+    "customerName": "Sneha Patel",
+    "customerPhone": "+91 65432 10987",
+    "customerAvatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sneha",
+    "lastMessage": "Order is ready for pickup! 🎂",
+    "lastMessageTime": "2024-12-21T11:00:00Z",
+    "unreadCount": 0,
+    "online": false,
+    "messages": [
+      { "id": "m17", "chatId": "chat4", "content": "Hi! What's the status of my order SF-2024-005?", "sender": "customer", "timestamp": "2024-12-21T10:30:00Z", "read": true, "type": "text" },
+      { "id": "m18", "chatId": "chat4", "content": "Hi Sneha! 🍰 Your Photo Cake + Cupcakes order is ready! 🎂 It will be out for delivery by 2 PM today. Tracking link: sweetflow.in/track/SF-2024-005", "sender": "ai", "timestamp": "2024-12-21T10:31:00Z", "read": true, "type": "order-update" },
+      { "id": "m19", "chatId": "chat4", "content": "Order is ready for pickup! 🎂", "sender": "ai", "timestamp": "2024-12-21T11:00:00Z", "read": true, "type": "order-update" }
+    ]
+  },
+  {
+    "id": "chat5",
+    "customerId": "c6",
+    "customerName": "Amit Joshi",
+    "customerPhone": "+91 54321 09876",
+    "customerAvatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Amit",
+    "lastMessage": "Can I get a quote for 20 cupcakes?",
+    "lastMessageTime": "2024-12-21T09:00:00Z",
+    "unreadCount": 0,
+    "online": false,
+    "messages": [
+      { "id": "m20", "chatId": "chat5", "content": "Can I get a quote for 20 cupcakes?", "sender": "customer", "timestamp": "2024-12-21T09:00:00Z", "read": true, "type": "text" },
+      { "id": "m21", "chatId": "chat5", "content": "Hi Amit! 🧁 20 cupcakes (assorted) would be ₹1,000. We can do custom frosting colors and flavours. Want to confirm the order?", "sender": "ai", "timestamp": "2024-12-21T09:01:00Z", "read": true, "type": "text" }
+    ]
+  }
+]

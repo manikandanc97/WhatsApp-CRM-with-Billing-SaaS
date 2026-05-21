@@ -1,0 +1,172 @@
+[
+  {
+    "id": "o1",
+    "orderNumber": "SF-2024-001",
+    "customerId": "c3",
+    "customerName": "Ananya Krishnan",
+    "customerPhone": "+91 87654 32109",
+    "items": [
+      { "productId": "p7", "productName": "Custom Wedding Cake", "quantity": 1, "price": 4500, "customization": "3-tier white fondant, roses decoration" }
+    ],
+    "status": "delivered",
+    "paymentStatus": "paid",
+    "deliveryType": "delivery",
+    "deliveryAddress": "8, MG Road, Pune - 411001",
+    "deliveryDate": "2024-12-20",
+    "createdAt": "2024-12-15T10:30:00Z",
+    "updatedAt": "2024-12-20T14:00:00Z",
+    "subtotal": 4500,
+    "tax": 225,
+    "total": 4725,
+    "notes": "Wedding on Dec 21st",
+    "specialInstructions": "Handle with care"
+  },
+  {
+    "id": "o2",
+    "orderNumber": "SF-2024-002",
+    "customerId": "c1",
+    "customerName": "Priya Sharma",
+    "customerPhone": "+91 98765 43210",
+    "items": [
+      { "productId": "p1", "productName": "Classic Chocolate Truffle", "quantity": 1, "price": 850 },
+      { "productId": "p10", "productName": "Cupcakes (Box of 12)", "quantity": 2, "price": 600 }
+    ],
+    "status": "confirmed",
+    "paymentStatus": "paid",
+    "deliveryType": "pickup",
+    "deliveryDate": "2024-12-22",
+    "createdAt": "2024-12-21T09:15:00Z",
+    "updatedAt": "2024-12-21T09:20:00Z",
+    "subtotal": 2050,
+    "tax": 103,
+    "total": 2153,
+    "notes": "Birthday party order"
+  },
+  {
+    "id": "o3",
+    "orderNumber": "SF-2024-003",
+    "customerId": "c9",
+    "customerName": "Meera Iyer",
+    "customerPhone": "+91 21098 76543",
+    "items": [
+      { "productId": "p3", "productName": "Red Velvet Cake", "quantity": 5, "price": 900 },
+      { "productId": "p8", "productName": "Photo Cake", "quantity": 2, "price": 1200 }
+    ],
+    "status": "baking",
+    "paymentStatus": "paid",
+    "deliveryType": "delivery",
+    "deliveryAddress": "11, Banjara Hills, Hyderabad - 500034",
+    "deliveryDate": "2024-12-23",
+    "createdAt": "2024-12-21T11:00:00Z",
+    "updatedAt": "2024-12-21T14:30:00Z",
+    "subtotal": 6900,
+    "tax": 345,
+    "total": 7245,
+    "notes": "Corporate event - 50 pax"
+  },
+  {
+    "id": "o4",
+    "orderNumber": "SF-2024-004",
+    "customerId": "c2",
+    "customerName": "Rahul Verma",
+    "customerPhone": "+91 99887 76543",
+    "items": [
+      { "productId": "p9", "productName": "Eggless Chocolate Cake", "quantity": 1, "price": 900 }
+    ],
+    "status": "pending",
+    "paymentStatus": "unpaid",
+    "deliveryType": "pickup",
+    "deliveryDate": "2024-12-22",
+    "createdAt": "2024-12-21T13:45:00Z",
+    "updatedAt": "2024-12-21T13:45:00Z",
+    "subtotal": 900,
+    "tax": 45,
+    "total": 945,
+    "notes": "Office birthday - strictly eggless"
+  },
+  {
+    "id": "o5",
+    "orderNumber": "SF-2024-005",
+    "customerId": "c5",
+    "customerName": "Sneha Patel",
+    "customerPhone": "+91 65432 10987",
+    "items": [
+      { "productId": "p8", "productName": "Photo Cake", "quantity": 1, "price": 1200, "customization": "Baby photo, blue theme" },
+      { "productId": "p10", "productName": "Cupcakes (Box of 12)", "quantity": 1, "price": 600 }
+    ],
+    "status": "ready",
+    "paymentStatus": "paid",
+    "deliveryType": "delivery",
+    "deliveryAddress": "33, Satellite Road, Ahmedabad - 380015",
+    "deliveryDate": "2024-12-21",
+    "createdAt": "2024-12-20T16:00:00Z",
+    "updatedAt": "2024-12-21T11:00:00Z",
+    "subtotal": 1800,
+    "tax": 90,
+    "total": 1890,
+    "notes": "Baby shower party"
+  },
+  {
+    "id": "o6",
+    "orderNumber": "SF-2024-006",
+    "customerId": "c8",
+    "customerName": "Vikas Gupta",
+    "customerPhone": "+91 32109 87654",
+    "items": [
+      { "productId": "p6", "productName": "Black Forest Cake", "quantity": 3, "price": 800 },
+      { "productId": "p10", "productName": "Cupcakes (Box of 12)", "quantity": 4, "price": 600 }
+    ],
+    "status": "confirmed",
+    "paymentStatus": "partial",
+    "deliveryType": "delivery",
+    "deliveryAddress": "56, HSR Layout, Bangalore - 560102",
+    "deliveryDate": "2024-12-23",
+    "createdAt": "2024-12-21T08:30:00Z",
+    "updatedAt": "2024-12-21T09:00:00Z",
+    "subtotal": 4800,
+    "tax": 240,
+    "total": 5040,
+    "notes": "Year-end office party"
+  },
+  {
+    "id": "o7",
+    "orderNumber": "SF-2024-007",
+    "customerId": "c4",
+    "customerName": "Deepak Nair",
+    "customerPhone": "+91 76543 21098",
+    "items": [
+      { "productId": "p9", "productName": "Eggless Chocolate Cake", "quantity": 2, "price": 900 }
+    ],
+    "status": "cancelled",
+    "paymentStatus": "unpaid",
+    "deliveryType": "pickup",
+    "deliveryDate": "2024-12-21",
+    "createdAt": "2024-12-20T12:00:00Z",
+    "updatedAt": "2024-12-20T18:00:00Z",
+    "subtotal": 1800,
+    "tax": 90,
+    "total": 1890,
+    "notes": "Customer cancelled"
+  },
+  {
+    "id": "o8",
+    "orderNumber": "SF-2024-008",
+    "customerId": "c1",
+    "customerName": "Priya Sharma",
+    "customerPhone": "+91 98765 43210",
+    "items": [
+      { "productId": "p2", "productName": "Mango Delight Cake", "quantity": 1, "price": 750 }
+    ],
+    "status": "delivered",
+    "paymentStatus": "paid",
+    "deliveryType": "delivery",
+    "deliveryAddress": "42, Rose Garden, Koramangala, Bangalore - 560034",
+    "deliveryDate": "2024-12-19",
+    "createdAt": "2024-12-18T10:00:00Z",
+    "updatedAt": "2024-12-19T15:00:00Z",
+    "subtotal": 750,
+    "tax": 38,
+    "total": 788,
+    "notes": ""
+  }
+]

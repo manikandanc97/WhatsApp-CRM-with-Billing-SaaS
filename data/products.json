@@ -1,0 +1,122 @@
+[
+  {
+    "id": "p1",
+    "name": "Classic Chocolate Truffle",
+    "category": "Cakes",
+    "price": 850,
+    "description": "Rich dark chocolate cake with truffle cream and chocolate shavings",
+    "inStock": true,
+    "popular": true,
+    "salesCount": 187
+  },
+  {
+    "id": "p2",
+    "name": "Mango Delight Cake",
+    "category": "Cakes",
+    "price": 750,
+    "description": "Fresh mango layers with mango cream and mango glaze",
+    "inStock": true,
+    "popular": true,
+    "salesCount": 163
+  },
+  {
+    "id": "p3",
+    "name": "Red Velvet Cake",
+    "category": "Cakes",
+    "price": 900,
+    "description": "Classic red velvet with cream cheese frosting",
+    "inStock": true,
+    "popular": true,
+    "salesCount": 142
+  },
+  {
+    "id": "p4",
+    "name": "Butterscotch Cake",
+    "category": "Cakes",
+    "price": 700,
+    "description": "Light sponge with butterscotch cream and caramel drizzle",
+    "inStock": true,
+    "popular": false,
+    "salesCount": 98
+  },
+  {
+    "id": "p5",
+    "name": "Vanilla Bean Cake",
+    "category": "Cakes",
+    "price": 650,
+    "description": "Pure vanilla sponge with vanilla buttercream",
+    "inStock": true,
+    "popular": false,
+    "salesCount": 76
+  },
+  {
+    "id": "p6",
+    "name": "Black Forest Cake",
+    "category": "Cakes",
+    "price": 800,
+    "description": "German-style black forest with Kirsch cherries",
+    "inStock": true,
+    "popular": true,
+    "salesCount": 134
+  },
+  {
+    "id": "p7",
+    "name": "Custom Wedding Cake",
+    "category": "Custom",
+    "price": 4500,
+    "description": "3-tier custom fondant wedding cake",
+    "inStock": true,
+    "popular": false,
+    "salesCount": 28
+  },
+  {
+    "id": "p8",
+    "name": "Photo Cake",
+    "category": "Custom",
+    "price": 1200,
+    "description": "Edible photo print on chocolate or vanilla cake",
+    "inStock": true,
+    "popular": true,
+    "salesCount": 89
+  },
+  {
+    "id": "p9",
+    "name": "Eggless Chocolate Cake",
+    "category": "Eggless",
+    "price": 900,
+    "description": "100% eggless rich chocolate cake",
+    "inStock": true,
+    "popular": false,
+    "salesCount": 112
+  },
+  {
+    "id": "p10",
+    "name": "Cupcakes (Box of 12)",
+    "category": "Cupcakes",
+    "price": 600,
+    "description": "Assorted flavours cupcakes with premium frosting",
+    "inStock": true,
+    "popular": true,
+    "salesCount": 201
+  },
+  {
+    "id": "p11",
+    "name": "Strawberry Cheesecake",
+    "category": "Cheesecake",
+    "price": 1100,
+    "description": "New York style cheesecake with strawberry compote",
+    "inStock": true,
+    "popular": false,
+    "salesCount": 67
+  },
+  {
+    "id": "p12",
+    "name": "Blueberry Muffins (6 pcs)",
+    "category": "Muffins",
+    "price": 350,
+    "description": "Fresh blueberry muffins with streusel topping",
+    "inStock": false,
+    "popular": false,
+    "salesCount": 45
+  }
+]

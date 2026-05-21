@@ -1,0 +1,52 @@
+{
+  "totalRevenue": 187450,
+  "totalOrders": 284,
+  "totalCustomers": 10,
+  "avgOrderValue": 1876,
+  "repeatCustomerRate": 68,
+  "salesByDay": [
+    { "date": "Mon", "revenue": 8200, "orders": 12 },
+    { "date": "Tue", "revenue": 6800, "orders": 9 },
+    { "date": "Wed", "revenue": 9400, "orders": 14 },
+    { "date": "Thu", "revenue": 11200, "orders": 17 },
+    { "date": "Fri", "revenue": 14800, "orders": 22 },
+    { "date": "Sat", "revenue": 22500, "orders": 34 },
+    { "date": "Sun", "revenue": 18900, "orders": 28 }
+  ],
+  "monthlyRevenue": [
+    { "date": "Jan", "revenue": 45200, "orders": 68 },
+    { "date": "Feb", "revenue": 38600, "orders": 58 },
+    { "date": "Mar", "revenue": 52800, "orders": 79 },
+    { "date": "Apr", "revenue": 48900, "orders": 73 },
+    { "date": "May", "revenue": 61200, "orders": 92 },
+    { "date": "Jun", "revenue": 55400, "orders": 83 },
+    { "date": "Jul", "revenue": 67800, "orders": 102 },
+    { "date": "Aug", "revenue": 72100, "orders": 108 },
+    { "date": "Sep", "revenue": 69300, "orders": 104 },
+    { "date": "Oct", "revenue": 78500, "orders": 118 },
+    { "date": "Nov", "revenue": 88200, "orders": 132 },
+    { "date": "Dec", "revenue": 94600, "orders": 142 }
+  ],
+  "topProducts": [
+    { "name": "Cupcakes Box", "sales": 201, "revenue": 120600, "percentage": 28 },
+    { "name": "Chocolate Truffle", "sales": 187, "revenue": 158950, "percentage": 26 },
+    { "name": "Mango Delight", "sales": 163, "revenue": 122250, "percentage": 23 },
+    { "name": "Red Velvet", "sales": 142, "revenue": 127800, "percentage": 20 },
+    { "name": "Black Forest", "sales": 134, "revenue": 107200, "percentage": 19 }
+  ],
+  "hourlyOrders": [
+    { "hour": "8AM", "orders": 3 },
+    { "hour": "9AM", "orders": 8 },
+    { "hour": "10AM", "orders": 15 },
+    { "hour": "11AM", "orders": 22 },
+    { "hour": "12PM", "orders": 18 },
+    { "hour": "1PM", "orders": 12 },
+    { "hour": "2PM", "orders": 9 },
+    { "hour": "3PM", "orders": 14 },
+    { "hour": "4PM", "orders": 28 },
+    { "hour": "5PM", "orders": 32 },
+    { "hour": "6PM", "orders": 24 },
+    { "hour": "7PM", "orders": 16 },
+    { "hour": "8PM", "orders": 8 }
+  ]
+}
