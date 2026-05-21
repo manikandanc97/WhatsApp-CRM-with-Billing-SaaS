@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, Variants } from 'framer-motion'
 import { X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useEffect, useState } from 'react'
@@ -26,20 +26,20 @@ const sizeClasses = {
 }
 
 // Mobile: classic bottom sheet spring
-const mobileSheet = {
+const mobileSheet: Variants = {
   hidden:  { y: '100%' },
   visible: { y: 0, transition: { type: 'spring', damping: 28, stiffness: 300, mass: 0.8 } },
   exit:    { y: '100%', transition: { duration: 0.22, ease: 'easeIn' } },
 }
 
 // Desktop: elegant scale-in
-const desktopModal = {
+const desktopModal: Variants = {
   hidden:  { opacity: 0, scale: 0.96, y: 12 },
   visible: { opacity: 1, scale: 1,    y: 0,  transition: { duration: 0.22, ease: [0.16, 1, 0.3, 1] } },
   exit:    { opacity: 0, scale: 0.95, y: 8,  transition: { duration: 0.18, ease: 'easeIn' } },
 }
 
-const overlay = {
+const overlay: Variants = {
   hidden:  { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 0.22 } },
   exit:    { opacity: 0, transition: { duration: 0.18 } },
