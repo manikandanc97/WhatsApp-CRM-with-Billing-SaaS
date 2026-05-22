@@ -281,8 +281,8 @@ export default function WhatsAppPage() {
           <SearchInput placeholder="Search chats..." value={search} onChange={setSearch} />
         </div>
 
-        {}
-        <div className="flex-1 overflow-y-auto overscroll-contain">
+        {/* Chat List */}
+        <div className="flex-1 overflow-y-auto overscroll-contain pb-[88px] lg:pb-0">
           {!mounted ? (
             <ChatSkeleton />
           ) : filtered.length === 0 ? (

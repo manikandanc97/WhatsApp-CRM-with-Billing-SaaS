@@ -16,6 +16,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   const mounted = useMounted()
   const hydrated = useStoreHydrated()
   const token = useAppStore((s) => s.token)
+  const activeChatId = useAppStore((s) => s.activeChatId)
   const sidebarOpen = useAppStore((s) => s.sidebarOpen)
   const addOrder = useAppStore((s) => s.addOrder)
   const chats = useAppStore((s) => s.chats)
@@ -224,7 +225,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         </main>
 
         {}
-        <div className="lg:hidden">
+        <div className={['lg:hidden', pathname.startsWith('/whatsapp') && activeChatId ? 'hidden' : ''].filter(Boolean).join(' ')}>
           <MobileBottomNav />
         </div>
       </div>
