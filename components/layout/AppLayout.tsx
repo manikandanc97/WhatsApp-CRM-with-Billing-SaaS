@@ -10,13 +10,20 @@ import toast, { Toaster } from 'react-hot-toast'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { useMounted } from '@/hooks/useMounted'
+import { useStoreHydrated } from '@/hooks/useStoreHydrated'
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const mounted = useMounted()
-  const { token, sidebarOpen, addOrder, chats, sendMessage } = useAppStore()
+  const hydrated = useStoreHydrated()
+  const token = useAppStore((s) => s.token)
+  const sidebarOpen = useAppStore((s) => s.sidebarOpen)
+  const addOrder = useAppStore((s) => s.addOrder)
+  const chats = useAppStore((s) => s.chats)
+  const sendMessage = useAppStore((s) => s.sendMessage)
   const pathname = usePathname()
   const router = useRouter()
 
+  const isBootRoute = pathname === '/'
   const isAuthRoute =
     pathname === '/login' ||
     pathname === '/signup' ||
@@ -24,14 +31,17 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     pathname === '/reset-password' ||
     pathname === '/otp-verify'
 
-  
+  const ready = mounted && hydrated
+
   useEffect(() => {
+    if (!ready || isBootRoute) return
+
     if (!token && !isAuthRoute) {
-      router.push('/login')
+      router.replace('/login')
     } else if (token && isAuthRoute) {
-      router.push('/dashboard')
+      router.replace('/dashboard')
     }
-  }, [token, isAuthRoute, pathname, router])
+  }, [ready, token, isAuthRoute, isBootRoute, router])
 
   
   useEffect(() => {
@@ -129,7 +139,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       boxShadow: '0 8px 32px 0 rgb(0 0 0 / 0.12)',
     },
   }
-  if (!mounted) {
+  if (!ready) {
     return (
       <div className="h-dvh w-dvw bg-background flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-brand-500 border-t-transparent rounded-full animate-spin" />
@@ -146,6 +156,10 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         </main>
       </div>
     )
+  }
+
+  if (isBootRoute) {
+    return <>{children}</>
   }
 
   return (
