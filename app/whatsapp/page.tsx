@@ -370,17 +370,12 @@ export default function WhatsAppPage() {
       </div>
 
       {}
-      <AnimatePresence>
-        {activeChatId && (
-          <motion.div
-            key={activeChatId}
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'spring', damping: 30, stiffness: 320, mass: 0.9 }}
-            className="wa-chat"
-          >
-            <Wallpaper />
+      {activeChatId && (
+        <div
+          key={activeChatId}
+          className="wa-chat"
+        >
+          <Wallpaper />
 
             {}
             <div className="relative z-20 flex items-center gap-2.5 px-3 py-2.5 border-b border-border bg-card/92 backdrop-blur-xl shadow-sm flex-shrink-0">
@@ -556,9 +551,8 @@ export default function WhatsAppPage() {
                 </p>
               )}
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
 
       {}
       {!activeChatId && (
