@@ -11,7 +11,6 @@ import { EmptyState } from '@/components/ui/EmptyState'
 import { SearchInput } from '@/components/ui/SearchInput'
 import { staggerContainer, staggerItem } from '@/lib/animations'
 import { useAppStore } from '@/store/useAppStore'
-import { useMounted } from '@/hooks/useMounted'
 import { useOfflineStore } from '@/store/offline'
 import { db } from '@/db'
 import { queueSyncAction, getPendingSyncCount } from '@/services/sync/engine'
@@ -31,8 +30,6 @@ const BILLING_STATUS_TABS = [
 ]
 
 export default function BillingPage() {
-  const mounted = useMounted()
-  const loading = !mounted
   const [search, setSearch] = useState('')
   const { isOnline, setPendingCount } = useOfflineStore()
   const [statusFilter, setStatusFilter] = useState('all')
@@ -42,7 +39,7 @@ export default function BillingPage() {
   
   const { 
     invoices, addInvoice, deleteInvoice, updateInvoice,
-    customers, setCustomers, chats, setChats, sendMessage 
+    customers, chats, setChats, sendMessage 
   } = useAppStore()
 
   
@@ -55,9 +52,6 @@ export default function BillingPage() {
   })
   const [items, setItems] = useState<InvoiceItem[]>([{ ...EMPTY_ITEM }])
 
-  const selectedCustomer = customers.find(c => c.id === form.customerId)
-
-  
   const subtotal = items.reduce((s, i) => s + i.quantity * (i.unitPrice || 0), 0)
   const taxAmount = calculateGST(subtotal, form.taxRate)
   const total = subtotal + taxAmount
@@ -131,9 +125,8 @@ export default function BillingPage() {
       await queueSyncAction('CREATE', 'BILL', invoiceId, invoice)
       const count = await getPendingSyncCount()
       setPendingCount(count)
-    } catch (err) {
-      
-      console.warn('[Offline] Dexie save failed:', err)
+    } catch {
+      toast.error('Failed to save invoice offline. Please try again.')
     }
 
     

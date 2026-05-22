@@ -63,7 +63,7 @@ export default function OrdersPage() {
   const [dragOverColumn, setDragOverColumn] = useState<string | null>(null)
 
   const { 
-    orders, setOrders, addOrder, updateOrder, deleteOrder, 
+    orders, addOrder, updateOrder, deleteOrder, 
     customers, addCustomer, updateCustomer 
   } = useAppStore()
 

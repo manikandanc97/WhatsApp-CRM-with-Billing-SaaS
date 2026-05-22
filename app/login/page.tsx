@@ -34,7 +34,7 @@ export default function LoginPage() {
       await login(data.email)
       toast.success('Successfully logged in!')
       router.push('/dashboard')
-    } catch (err) {
+    } catch {
       toast.error('Authentication failed. Please try again.')
     } finally {
       setIsLoading(false)

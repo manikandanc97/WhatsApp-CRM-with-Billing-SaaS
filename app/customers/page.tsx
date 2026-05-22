@@ -58,7 +58,7 @@ export default function CustomersPage() {
   const [tagInput, setTagInput] = useState('')
 
   const { 
-    customers, setCustomers, addCustomer, updateCustomer, deleteCustomer,
+    customers, addCustomer, updateCustomer, deleteCustomer,
     orders 
   } = useAppStore()
 

@@ -12,20 +12,6 @@ export function Skeleton({ className }: SkeletonProps) {
   )
 }
 
-export function StatsCardSkeleton() {
-  return (
-    <div className="bg-card rounded-2xl border border-border p-5 space-y-3">
-      <div className="flex items-center justify-between">
-        <Skeleton className="h-4 w-28" />
-        <Skeleton className="h-9 w-9 rounded-xl" />
-      </div>
-      <Skeleton className="h-8 w-24" />
-      <Skeleton className="h-3 w-36" />
-    </div>
-  )
-}
-
-
 export function CardSkeleton() {
   return (
     <div className="bg-card rounded-2xl border border-border p-5 space-y-4">

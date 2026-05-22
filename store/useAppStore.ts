@@ -12,7 +12,6 @@ import messagesData from '@/data/messages.json'
 
 interface OrdersSlice {
   orders: Order[]
-  setOrders: (orders: Order[]) => void
   addOrder: (order: Order) => void
   updateOrder: (id: string, updates: Partial<Order>) => void
   deleteOrder: (id: string) => void
@@ -21,7 +20,6 @@ interface OrdersSlice {
 
 interface CustomersSlice {
   customers: Customer[]
-  setCustomers: (customers: Customer[]) => void
   addCustomer: (customer: Customer) => void
   updateCustomer: (id: string, updates: Partial<Customer>) => void
   deleteCustomer: (id: string) => void
@@ -56,11 +54,9 @@ interface SettingsSlice {
 
 interface UISlice {
   sidebarOpen: boolean
-  activeModal: string | null
   theme: 'light' | 'dark' | 'system'
   setSidebarOpen: (open: boolean) => void
   toggleSidebar: () => void
-  setActiveModal: (modal: string | null) => void
   setTheme: (theme: 'light' | 'dark' | 'system') => void
 }
 
@@ -106,7 +102,6 @@ export const useAppStore = create<AppStore>()(
     (set, get) => ({
       
       orders: ordersData as any,
-      setOrders: (orders) => set({ orders }),
       addOrder: (order) => set((s) => ({ orders: [order, ...s.orders] })),
       updateOrder: (id, updates) =>
         set((s) => ({
@@ -117,7 +112,6 @@ export const useAppStore = create<AppStore>()(
 
       
       customers: customersData as any,
-      setCustomers: (customers) => set({ customers }),
       addCustomer: (customer) =>
         set((s) => ({ customers: [customer, ...s.customers] })),
       updateCustomer: (id, updates) =>
@@ -178,11 +172,9 @@ export const useAppStore = create<AppStore>()(
 
       
       sidebarOpen: true,
-      activeModal: null,
       theme: 'light',
       setSidebarOpen: (open) => set({ sidebarOpen: open }),
       toggleSidebar: () => set((s) => ({ sidebarOpen: !s.sidebarOpen })),
-      setActiveModal: (modal) => set({ activeModal: modal }),
       setTheme: (theme) => set({ theme }),
 
       

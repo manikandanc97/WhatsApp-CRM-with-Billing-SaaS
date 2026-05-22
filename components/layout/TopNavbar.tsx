@@ -68,7 +68,7 @@ function NotifIcon({ type }: { type: string }) {
 }
 
 export function TopNavbar() {
-  const { toggleSidebar, theme, setTheme, chats } = useAppStore()
+  const { toggleSidebar, theme, setTheme } = useAppStore()
   const pathname = usePathname()
   const [mounted, setMounted] = useState(false)
   const [notifOpen, setNotifOpen] = useState(false)
@@ -79,7 +79,6 @@ export function TopNavbar() {
   const [notifications, setNotifications] = useState(fakeNotifications)
   const cmdRef = useRef<HTMLInputElement>(null)
   const unreadCount = notifications.filter(n => !n.read).length
-  const totalUnread = chats.reduce((acc, c) => acc + c.unreadCount, 0)
 
   // Breadcrumbs
   const segments = pathname.split('/').filter(Boolean)
@@ -410,10 +409,8 @@ export function TopNavbar() {
         </div>
       </header>
 
-      {}
       <OfflineBanner />
 
-      {}
       <AnimatePresence>
         {cmdOpen && (
           <motion.div

@@ -30,7 +30,7 @@ export default function ForgotPasswordPage() {
       await sendOTP(data.email)
       toast.success('OTP sent! Check your email for code: 123456', { duration: 6000 })
       router.push('/otp-verify')
-    } catch (err) {
+    } catch {
       toast.error('Failed to send OTP. Please try again.')
     } finally {
       setIsLoading(false)

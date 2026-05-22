@@ -30,7 +30,6 @@ const statusConfig = {
 
 export default function StaffPage() {
   const [search, setSearch] = useState('')
-  const [view, setView] = useState<'grid' | 'list'>('grid')
 
   const filtered = staffMembers.filter(s =>
     s.name.toLowerCase().includes(search.toLowerCase()) ||

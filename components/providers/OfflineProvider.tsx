@@ -6,7 +6,7 @@ import { processSyncQueue, getPendingSyncCount } from '@/services/sync/engine'
 import toast from 'react-hot-toast'
 
 export function OfflineProvider({ children }: { children: React.ReactNode }) {
-  const { setOnline, setSyncing, setPendingCount, setLastSyncTime, isOnline } = useOfflineStore()
+  const { setOnline, setSyncing, setPendingCount, setLastSyncTime } = useOfflineStore()
   const syncLockRef = useRef(false)
 
   const syncNow = useCallback(async () => {

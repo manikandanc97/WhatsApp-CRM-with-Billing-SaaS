@@ -28,7 +28,7 @@ export function MobileHeader() {
       if (synced > 0) toast.success(`Synced ${synced} item${synced > 1 ? 's' : ''} successfully! ⚡`)
       if (failed > 0) toast.error(`${failed} item${failed > 1 ? 's' : ''} failed to sync`)
       if (synced === 0 && failed === 0) toast('Everything is already up to date!', { icon: '✅' })
-    } catch (err) {
+    } catch {
       toast.error('Sync failed. Please try again.')
     } finally {
       setSyncing(false)
@@ -42,12 +42,6 @@ export function MobileHeader() {
     : isOnline
     ? 'bg-emerald-500'
     : 'bg-rose-500'
-
-  const statusText = isSyncing
-    ? 'Syncing'
-    : isOnline
-    ? 'Online'
-    : 'Offline'
 
   return (
     <>

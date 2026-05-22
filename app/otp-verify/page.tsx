@@ -96,7 +96,7 @@ export default function OTPVerifyPage() {
       } else {
         toast.error('Invalid verification code. Use: 123456')
       }
-    } catch (err) {
+    } catch {
       toast.error('An error occurred during verification')
     } finally {
       setIsLoading(false)
@@ -111,7 +111,7 @@ export default function OTPVerifyPage() {
       await sendOTP(email)
       setResendTimer(30)
       toast.success('New OTP sent! Code: 123456')
-    } catch (err) {
+    } catch {
       toast.error('Failed to send OTP. Try again.')
     } finally {
       setIsLoading(false)

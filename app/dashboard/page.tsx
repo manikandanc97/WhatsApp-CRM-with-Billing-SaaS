@@ -51,12 +51,6 @@ const revenueData = [
   { month: 'May', revenue: 287500, orders: 76, target: 260000 },
 ]
 
-const conversionData = [
-  { name: 'WhatsApp Leads', value: 84, fill: '#4f46e5' },
-  { name: 'Orders Placed',  value: 67, fill: '#7c3aed' },
-  { name: 'Payments Done',  value: 54, fill: '#10b981' },
-]
-
 const whatsappData = [
   { day: 'Mon', sent: 42, received: 38, converted: 12 },
   { day: 'Tue', sent: 55, received: 49, converted: 18 },
@@ -161,7 +155,7 @@ export default function DashboardPage() {
   const loading = !mounted
   const [orderSearch, setOrderSearch] = useState('')
   const [orderFilter, setOrderFilter] = useState<string | null>(null)
-  const { orders, customers, chats, setOrders, setCustomers } = useAppStore()
+  const { orders, chats } = useAppStore()
   
   const [isMobile, setIsMobile] = useState(false)
   const [activeBottomTab, setActiveBottomTab] = useState<'insights' | 'alerts' | 'reminders'>('insights')

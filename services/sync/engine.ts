@@ -9,27 +9,11 @@ async function pushToCloud(_action: SyncAction): Promise<void> {
   if (Math.random() < 0.05) {
     throw new Error('Simulated cloud sync error')
   }
-
-  
-  
-  
-  
-  
-  
-  
 }
 
 async function markEntitySynced(entity: SyncAction['entity'], id: string) {
-  switch (entity) {
-    case 'BILL':
-      await db.bills.update(id, { isSynced: true, updatedAt: new Date().toISOString() })
-      break
-    case 'CUSTOMER':
-      await db.customers.update(id, { isSynced: true, updatedAt: new Date().toISOString() })
-      break
-    case 'PRODUCT':
-      await db.products.update(id, { isSynced: true, updatedAt: new Date().toISOString() })
-      break
+  if (entity === 'BILL') {
+    await db.bills.update(id, { isSynced: true, updatedAt: new Date().toISOString() })
   }
 }
 

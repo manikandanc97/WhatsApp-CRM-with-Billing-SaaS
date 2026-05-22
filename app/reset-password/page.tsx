@@ -10,7 +10,7 @@ import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 
 export default function ResetPasswordPage() {
-  const { resetPassword, otpVerified } = useAppStore()
+  const { resetPassword } = useAppStore()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
@@ -43,7 +43,7 @@ export default function ResetPasswordPage() {
       setTimeout(() => {
         router.push('/login')
       }, 1500)
-    } catch (err) {
+    } catch {
       toast.error('Failed to reset password. Please try again.')
     } finally {
       setIsLoading(false)
