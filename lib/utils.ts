@@ -38,13 +38,6 @@ export function formatRelativeTime(date: string | Date | undefined | null): stri
   return formatDistanceToNow(d, { addSuffix: true })
 }
 
-export function formatShortDate(date: string | undefined | null): string {
-  if (!date) return ''
-  const d = new Date(date)
-  if (isNaN(d.getTime())) return ''
-  return format(d, 'dd MMM')
-}
-
 export function generateId(): string {
   return Math.random().toString(36).substring(2, 9)
 }
@@ -58,11 +51,6 @@ export function generateOrderNumber(): string {
 export function generateInvoiceNumber(): string {
   const num = Math.floor(Math.random() * 9000) + 1000
   return `INV-${num}`
-}
-
-export function truncate(str: string, length: number): string {
-  if (str.length <= length) return str
-  return str.substring(0, length) + '...'
 }
 
 export function getInitials(name: string): string {

@@ -1,34 +1,31 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   DollarSign, ShoppingBag, MessageSquare, Clock, TrendingUp,
-  Package, ArrowUpRight, MoreHorizontal, Sparkles, Target,
-  Users, Zap, AlertTriangle, Bell, ChevronRight, Filter,
-  Download, Search, RefreshCw, CheckCircle2, Circle,
-  MessageCircle, BarChart2, Star
+  Package, ArrowUpRight, Sparkles, Target,
+  Users, AlertTriangle, Bell, Filter,
+  Download, Search, RefreshCw, Circle,
+  MessageCircle, Star
 } from 'lucide-react'
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
-  ResponsiveContainer, BarChart, Bar, RadialBarChart, RadialBar,
-  PieChart, Pie, Cell, LineChart, Line, Legend
+  ResponsiveContainer, BarChart, Bar, LineChart, Line
 } from 'recharts'
 import { PremiumStatsCard } from '@/components/ui/PremiumStatsCard'
-import { StatusBadge } from '@/components/ui/StatusBadge'
 import { Skeleton } from '@/components/ui/LoadingSkeleton'
 import { useAppStore } from '@/store/useAppStore'
 import { useMounted } from '@/hooks/useMounted'
 import { formatCurrency, getInitials, cn } from '@/lib/utils'
 import analyticsData from '@/data/analytics.json'
 import ordersData from '@/data/orders.json'
-import customersData from '@/data/customers.json'
 import type { Order } from '@/types'
 import Link from 'next/link'
 import { format } from 'date-fns'
 import toast from 'react-hot-toast'
 
-// ─── Fake data ─────────────────────────────────────────────
+
 const sparkRevenue = [
   { v: 14200 }, { v: 18900 }, { v: 12400 }, { v: 22100 },
   { v: 19800 }, { v: 25300 }, { v: 28750 },
@@ -109,7 +106,7 @@ const smartReminders = [
   { id: 4, text: 'Review monthly analytics report',   due: 'Friday',      urgent: false },
 ]
 
-// ─── Custom tooltip ────────────────────────────────────────
+
 function PremiumTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null
   return (
@@ -132,7 +129,7 @@ function PremiumTooltip({ active, payload, label }: any) {
   )
 }
 
-// ─── Order status badge ────────────────────────────────────
+
 function OrderStatusBadge({ status }: { status: string }) {
   const map: Record<string, string> = {
     paid:      'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400',
@@ -149,7 +146,7 @@ function OrderStatusBadge({ status }: { status: string }) {
   )
 }
 
-// ─── Section card wrapper ──────────────────────────────────
+
 function SectionCard({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
     <div className={cn('bg-card border border-border rounded-2xl shadow-sm', className)}>
@@ -158,7 +155,7 @@ function SectionCard({ children, className }: { children: React.ReactNode; class
   )
 }
 
-// ─── Main Dashboard ────────────────────────────────────────
+
 export default function DashboardPage() {
   const mounted = useMounted()
   const loading = !mounted
@@ -192,7 +189,7 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6 page-wrapper">
 
-      {/* ── Hero greeting ──────────────────────────────── */}
+      {}
       <div className="flex items-start justify-between">
         <div>
           <motion.h1
@@ -231,8 +228,8 @@ export default function DashboardPage() {
         </motion.div>
       </div>
 
-      {/* ── Stats Cards: MOBILE — horizontal snap scroll ────── */}
-      {/* -mx-4 extends to screen edges; px-4 + scroll-pl-4 ensures all snapped cards start at 16px inset */}
+      {}
+      {}
       <div className="lg:hidden flex overflow-x-auto snap-x snap-mandatory gap-4 pb-2 scrollbar-none -mx-4 px-4 scroll-pl-4">
         {loading ? (
           Array.from({ length: 4 }).map((_, i) => (
@@ -254,7 +251,7 @@ export default function DashboardPage() {
         )}
       </div>
 
-      {/* ── Stats Cards: DESKTOP — 4-column grid ─────────────── */}
+      {}
       <div className="hidden lg:grid grid-cols-2 xl:grid-cols-4 gap-4">
         {loading ? (
           Array.from({ length: 4 }).map((_, i) => (
@@ -276,7 +273,7 @@ export default function DashboardPage() {
         )}
       </div>
 
-      {/* ── Today's Target Progress ────────────────────── */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -305,7 +302,7 @@ export default function DashboardPage() {
               transition={{ duration: 1.2, ease: 'easeOut', delay: 0.3 }}
               className="h-full rounded-full bg-gradient-to-r from-brand-500 via-violet-500 to-purple-500 relative shadow-[0_0_12px_rgba(99,102,241,0.3)]"
             >
-              {/* Internal pulsing shine */}
+              {}
               <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.25)_50%,transparent_100%)] animate-[pulse_2s_infinite]" />
               <div className="absolute right-0.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white dark:bg-zinc-900 shadow-[0_2px_8px_rgba(0,0,0,0.15)] ring-2 ring-brand-500 flex items-center justify-center">
                 <div className="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse" />
@@ -322,9 +319,9 @@ export default function DashboardPage() {
         </SectionCard>
       </motion.div>
 
-      {/* ── Revenue Chart + Top Products ───────────────── */}
+      {}
       <div className="flex flex-col gap-4 lg:grid lg:grid-cols-3">
-        {/* Revenue Chart */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -344,7 +341,7 @@ export default function DashboardPage() {
                 </div>
               </div>
             </div>
-            {/* Legend */}
+            {}
             <div className="flex items-center gap-4 px-5 pt-3 pb-1">
               {[{ color: '#4f46e5', label: 'Revenue' }, { color: '#e2e8f0', label: 'Target' }].map(l => (
                 <div key={l.label} className="flex items-center gap-1.5">
@@ -383,7 +380,7 @@ export default function DashboardPage() {
           </SectionCard>
         </motion.div>
 
-        {/* Top Products */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -427,9 +424,9 @@ export default function DashboardPage() {
         </motion.div>
       </div>
 
-      {/* ── WhatsApp + Retention ───────────────────────── */}
+      {}
       <div className="flex flex-col gap-4">
-        {/* WhatsApp Campaign Performance */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -476,7 +473,7 @@ export default function DashboardPage() {
           </SectionCard>
         </motion.div>
 
-        {/* Customer Retention */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -529,9 +526,9 @@ export default function DashboardPage() {
         </motion.div>
       </div>
 
-      {/* ── Recent Orders Table + Activity ─────────────── */}
+      {}
       <div className="flex flex-col gap-4">
-        {/* Premium Orders Table */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -539,14 +536,14 @@ export default function DashboardPage() {
           className="lg:col-span-2"
         >
           <SectionCard>
-            {/* Table header */}
+            {}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-5 pb-4 border-b border-border">
               <div>
                 <h3 className="font-semibold text-foreground">Recent Orders</h3>
                 <p className="text-xs text-muted-foreground mt-0.5">{filteredOrders.length} orders shown</p>
               </div>
               <div className="flex items-center gap-2">
-                {/* Search */}
+                {}
                 <div className="relative">
                   <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
                   <input
@@ -556,7 +553,7 @@ export default function DashboardPage() {
                     className="pl-8 pr-3 py-1.5 text-xs border border-border rounded-xl bg-muted/40 focus:bg-background focus:border-brand-400 focus:ring-1 focus:ring-brand-400/20 outline-none transition-all w-36"
                   />
                 </div>
-                {/* Filter */}
+                {}
                 <div className="relative">
                   <select
                     onChange={e => setOrderFilter(e.target.value || null)}
@@ -571,7 +568,7 @@ export default function DashboardPage() {
                   </select>
                   <Filter className="absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-muted-foreground pointer-events-none" />
                 </div>
-                {/* Export */}
+                {}
                 <button
                   onClick={() => toast.success('Exporting orders to CSV...')}
                   className="flex items-center gap-1.5 text-xs font-medium border border-border rounded-xl px-2.5 py-1.5 hover:bg-muted transition-colors text-muted-foreground"
@@ -582,7 +579,7 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            {/* Table body */}
+            {}
             <div>
               {loading ? (
                 <div className="p-4 space-y-3">
@@ -598,7 +595,7 @@ export default function DashboardPage() {
                 </div>
               ) : (
                 <>
-                  {/* Mobile view: Beautiful native order rows */}
+                  {}
                   <div className="lg:hidden divide-y divide-border/30 px-4">
                     {filteredOrders.map((order, i) => (
                       <motion.div
@@ -633,7 +630,7 @@ export default function DashboardPage() {
                     ))}
                   </div>
 
-                  {/* Desktop view: Standard Table */}
+                  {}
                   <div className="hidden lg:block overflow-x-auto">
                     <table className="w-full">
                       <thead>
@@ -685,7 +682,7 @@ export default function DashboardPage() {
               )}
             </div>
 
-            {/* Table footer */}
+            {}
             <div className="flex items-center justify-between px-5 py-3 border-t border-border">
               <span className="text-xs text-muted-foreground">Showing {filteredOrders.length} of {displayOrders.length} orders</span>
               <Link href="/orders" className="flex items-center gap-1 text-xs font-semibold text-brand-600 dark:text-brand-400 hover:underline">
@@ -695,7 +692,7 @@ export default function DashboardPage() {
           </SectionCard>
         </motion.div>
 
-        {/* Live Activity Feed */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -722,7 +719,7 @@ export default function DashboardPage() {
                     transition={{ duration: 0.25, delay: 0.5 + i * 0.06 }}
                     className="flex gap-3 group py-2.5"
                   >
-                    {/* Icon + connector */}
+                    {}
                     <div className="flex flex-col items-center">
                       <div className={cn('w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 relative', item.color)}>
                         <Icon className={cn('w-3.5 h-3.5', item.iconColor)} />
@@ -734,7 +731,7 @@ export default function DashboardPage() {
                         <div className="w-px flex-1 mt-1.5 bg-border/60" />
                       )}
                     </div>
-                    {/* Content */}
+                    {}
                     <div className="pb-3 flex-1 min-w-0">
                       <p className="text-xs font-semibold text-foreground leading-tight">{item.text}</p>
                       <p className="text-[11px] text-muted-foreground mt-0.5 truncate">{item.sub}</p>
@@ -748,11 +745,11 @@ export default function DashboardPage() {
         </motion.div>
       </div>
 
-      {/* ── AI Insights + Inventory Alerts + Reminders ─── */}
+      {}
       
-      {/* Desktop view: 3-column grid */}
+      {}
       <div className="hidden lg:grid grid-cols-3 gap-6">
-        {/* AI Sales Insights */}
+        {}
         <SectionCard className="h-full">
           <div className="p-5 pb-4 border-b border-border">
             <div className="flex items-center gap-2.5">
@@ -783,7 +780,7 @@ export default function DashboardPage() {
           </div>
         </SectionCard>
 
-        {/* Inventory Alerts */}
+        {}
         <SectionCard className="h-full">
           <div className="flex items-center justify-between p-5 pb-4 border-b border-border">
             <div className="flex items-center gap-2.5">
@@ -824,7 +821,7 @@ export default function DashboardPage() {
           </div>
         </SectionCard>
 
-        {/* Smart Reminders */}
+        {}
         <SectionCard className="h-full">
           <div className="flex items-center justify-between p-5 pb-4 border-b border-border">
             <div className="flex items-center gap-2.5">
@@ -874,9 +871,9 @@ export default function DashboardPage() {
         </SectionCard>
       </div>
 
-      {/* Mobile view: Premium iOS Segmented Control Selector + Card Container */}
+      {}
       <div className="lg:hidden flex flex-col gap-4">
-        {/* iOS-style Segmented Control */}
+        {}
         <div className="bg-muted/50 dark:bg-muted/10 p-1 rounded-2xl flex items-center border border-border/30">
           {(['insights', 'alerts', 'reminders'] as const).map((tab) => {
             const label = tab === 'insights' ? 'Insights' : tab === 'alerts' ? 'Alerts' : 'Reminders';
@@ -902,7 +899,7 @@ export default function DashboardPage() {
           })}
         </div>
 
-        {/* Tab content with transition */}
+        {}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeBottomTab}

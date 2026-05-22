@@ -2,14 +2,13 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import {
-  BarChart2, Download, Calendar, TrendingUp, TrendingDown,
-  DollarSign, ShoppingBag, Users, MessageSquare, ArrowUpRight
+import { Download, TrendingUp, TrendingDown,
+  DollarSign, ShoppingBag, Users
 } from 'lucide-react'
 import { PageHeader } from '@/components/ui/PageHeader'
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid,
-  Tooltip, BarChart, Bar, PieChart, Pie, Cell
+  Tooltip, PieChart, Pie, Cell
 } from 'recharts'
 import { cn } from '@/lib/utils'
 import toast from 'react-hot-toast'
@@ -64,7 +63,7 @@ export default function ReportsPage() {
     <div className="space-y-6 page-wrapper">
       <PageHeader title="Reports" description="Detailed business performance analytics" />
 
-      {/* Period Switcher */}
+      {}
       <div className="flex items-center gap-2">
         {(['weekly', 'monthly', 'yearly'] as const).map(p => (
           <button
@@ -88,7 +87,7 @@ export default function ReportsPage() {
         </button>
       </div>
 
-      {/* KPI row */}
+      {}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {kpis.map((kpi, i) => {
           const Icon = kpi.icon
@@ -117,7 +116,7 @@ export default function ReportsPage() {
         })}
       </div>
 
-      {/* Revenue chart */}
+      {}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
@@ -151,7 +150,7 @@ export default function ReportsPage() {
           </ResponsiveContainer>
         </motion.div>
 
-        {/* Category breakdown */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}

@@ -13,14 +13,14 @@ import { formatDistanceToNow } from 'date-fns'
 import { SyncStatus } from './SyncStatus'
 import { OfflineBanner } from '@/components/ui/OfflineBanner'
 
-// ─── Breadcrumb map ────────────────────────────────────────
+
 const breadcrumbMap: Record<string, string> = {
   dashboard: 'Dashboard', orders: 'Orders', billing: 'Billing',
   customers: 'Customers', whatsapp: 'WhatsApp CRM', analytics: 'Analytics',
   inventory: 'Inventory', reports: 'Reports', staff: 'Staff', settings: 'Settings',
 }
 
-// ─── Fake notifications ────────────────────────────────────
+
 const fakeNotifications = [
   { id: 1, type: 'order',   title: 'New order received',       body: 'Priya Sharma placed order #SF-2024-089', time: new Date(Date.now() - 120000), read: false },
   { id: 2, type: 'payment', title: 'Payment confirmed',         body: '₹7,245 received from Meera Iyer',        time: new Date(Date.now() - 900000), read: false },
@@ -29,7 +29,7 @@ const fakeNotifications = [
   { id: 5, type: 'success', title: 'Delivery completed',        body: 'Order SF-2024-087 delivered successfully', time: new Date(Date.now() - 86400000), read: true },
 ]
 
-// ─── Quick create options ──────────────────────────────────
+
 const quickCreateItems = [
   { label: 'New Order',    href: '/orders',    icon: ShoppingBag,   color: 'text-blue-500' },
   { label: 'New Customer', href: '/customers', icon: User,          color: 'text-violet-500' },
@@ -37,7 +37,7 @@ const quickCreateItems = [
   { label: 'Send Message', href: '/whatsapp',  icon: MessageSquare, color: 'text-amber-500' },
 ]
 
-// ─── Command palette items ─────────────────────────────────
+
 const cmdItems = [
   { label: 'Go to Dashboard',    href: '/dashboard',  icon: Circle,        group: 'Navigate' },
   { label: 'Go to Orders',       href: '/orders',     icon: ShoppingBag,   group: 'Navigate' },
@@ -136,7 +136,7 @@ export function TopNavbar() {
   return (
     <>
       <header className="h-16 topbar-glass sticky top-0 z-20 flex items-center justify-between px-4 md:px-6">
-        {/* LEFT: Mobile hamburger + Breadcrumbs */}
+        {}
         <div className="flex items-center gap-3">
           <button
             onClick={toggleSidebar}
@@ -145,7 +145,7 @@ export function TopNavbar() {
             <Menu className="w-5 h-5" />
           </button>
 
-          {/* Breadcrumbs — desktop */}
+          {}
           <div className="hidden md:flex items-center gap-1.5">
             <Link href="/dashboard" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
               Home
@@ -164,7 +164,7 @@ export function TopNavbar() {
             ))}
           </div>
 
-          {/* Mobile logo */}
+          {}
           <div className="md:hidden flex items-center gap-2">
             <div className="w-7 h-7 rounded-lg gradient-brand flex items-center justify-center">
               <Zap className="w-3.5 h-3.5 text-white" />
@@ -173,11 +173,11 @@ export function TopNavbar() {
           </div>
         </div>
 
-        {/* RIGHT: Actions */}
+        {}
         <div className="flex items-center gap-1.5">
-          {/* Sync Status Pill */}
+          {}
           <SyncStatus />
-          {/* Search / Command trigger */}
+          {}
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={() => setCmdOpen(true)}
@@ -190,7 +190,7 @@ export function TopNavbar() {
             </kbd>
           </motion.button>
 
-          {/* Mobile search */}
+          {}
           <button
             onClick={() => setCmdOpen(true)}
             className="md:hidden w-9 h-9 flex items-center justify-center rounded-xl text-muted-foreground hover:bg-muted transition-colors"
@@ -198,7 +198,7 @@ export function TopNavbar() {
             <Search className="w-4.5 h-4.5" />
           </button>
 
-          {/* Quick create */}
+          {}
           <div className="relative">
             <motion.button
               whileTap={{ scale: 0.95 }}
@@ -242,7 +242,7 @@ export function TopNavbar() {
             </AnimatePresence>
           </div>
 
-          {/* Theme toggle */}
+          {}
           {mounted && (
             <motion.button
               whileTap={{ scale: 0.92 }}
@@ -263,7 +263,7 @@ export function TopNavbar() {
             </motion.button>
           )}
 
-          {/* Notifications */}
+          {}
           <div className="relative">
             <motion.button
               whileTap={{ scale: 0.92 }}
@@ -342,7 +342,7 @@ export function TopNavbar() {
             </AnimatePresence>
           </div>
 
-          {/* User avatar */}
+          {}
           <div className="relative">
             <motion.button
               whileTap={{ scale: 0.95 }}
@@ -410,10 +410,10 @@ export function TopNavbar() {
         </div>
       </header>
 
-      {/* ─── Offline Banner ───────────────────────────────── */}
+      {}
       <OfflineBanner />
 
-      {/* ─── Command Palette Overlay ─────────────────────── */}
+      {}
       <AnimatePresence>
         {cmdOpen && (
           <motion.div
@@ -432,7 +432,7 @@ export function TopNavbar() {
               onClick={(e) => e.stopPropagation()}
               className="w-full max-w-lg bg-card border border-border rounded-2xl shadow-[0_24px_80px_rgba(0,0,0,0.25)] overflow-hidden"
             >
-              {/* Search input */}
+              {}
               <div className="flex items-center gap-3 px-4 py-3.5 border-b border-border">
                 <Search className="w-4.5 h-4.5 text-muted-foreground flex-shrink-0" />
                 <input
@@ -447,7 +447,7 @@ export function TopNavbar() {
                 </button>
               </div>
 
-              {/* Results */}
+              {}
               <div className="max-h-80 overflow-y-auto scrollbar-thin p-2">
                 {Object.entries(cmdGroups).map(([group, items]) => (
                   <div key={group} className="mb-2">
@@ -478,7 +478,7 @@ export function TopNavbar() {
                 )}
               </div>
 
-              {/* Footer */}
+              {}
               <div className="flex items-center gap-4 px-4 py-2.5 border-t border-border">
                 <span className="text-[10px] text-muted-foreground flex items-center gap-1"><kbd className="bg-muted px-1.5 py-0.5 rounded text-[9px] font-medium">↵</kbd> Select</span>
                 <span className="text-[10px] text-muted-foreground flex items-center gap-1"><kbd className="bg-muted px-1.5 py-0.5 rounded text-[9px] font-medium">↑↓</kbd> Navigate</span>

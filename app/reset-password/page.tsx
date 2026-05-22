@@ -30,7 +30,7 @@ export default function ResetPasswordPage() {
 
   const passwordVal = watch('password')
 
-  // Password validation checks
+  
   const hasMinLength = passwordVal.length >= 8
   const hasNumber = /\d/.test(passwordVal)
   const hasSpecial = /[^A-Za-z0-9]/.test(passwordVal)
@@ -50,7 +50,7 @@ export default function ResetPasswordPage() {
     }
   }
 
-  // If OTP is not verified yet, show a nice warning / redirect prompt (except in full demo simulation where we let the user access it anyway for demo convenience)
+  
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
@@ -59,11 +59,11 @@ export default function ResetPasswordPage() {
       className="w-full max-w-md"
     >
       <div className="bg-card border border-border/80 rounded-3xl p-8 shadow-elevated relative overflow-hidden">
-        {/* Decorative ambient glow */}
+        {}
         <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full bg-brand-500/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-12 -left-12 w-32 h-32 rounded-full bg-violet-500/10 blur-3xl pointer-events-none" />
 
-        {/* Header */}
+        {}
         <div className="flex flex-col items-center mb-8">
           <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-500 to-violet-600 flex items-center justify-center shadow-lg shadow-brand-500/10 mb-3">
             <Lock className="w-6 h-6 text-white" />
@@ -74,7 +74,7 @@ export default function ResetPasswordPage() {
           </p>
         </div>
 
-        {/* Form */}
+        {}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
             <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block mb-1.5">
@@ -139,7 +139,7 @@ export default function ResetPasswordPage() {
             )}
           </div>
 
-          {/* Password Strength Indicator */}
+          {}
           <div className="bg-muted/30 rounded-xl p-3 border border-border/60 space-y-1.5">
             <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">Password Strength Checklist</p>
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground">

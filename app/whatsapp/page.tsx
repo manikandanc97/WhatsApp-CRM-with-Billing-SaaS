@@ -15,7 +15,6 @@ import { formatTime, formatRelativeTime, generateId, getInitials, cn } from '@/l
 import type { Message } from '@/types'
 import toast from 'react-hot-toast'
 
-/* ─── Constants ─────────────────────────────── */
 const AI_REPLIES: Record<string, string> = {
   default: 'Thanks for reaching out! 😊 How can I help you today?',
   cake: 'Yes, we have a wide variety of cakes! 🎂 Chocolate Truffle, Red Velvet, Mango Delight and more. Which flavour would you like?',
@@ -44,7 +43,6 @@ function getAIReply(msg: string): string {
   return AI_REPLIES.default
 }
 
-/* ─── Sub-components ────────────────────────── */
 function TypingIndicator() {
   return (
     <div className="flex items-end gap-2 px-4 py-1.5">
@@ -146,7 +144,6 @@ function Bubble({ msg, customerName }: { msg: Message; customerName: string }) {
   )
 }
 
-/* ─── Page ─────────────────────────────────── */
 export default function WhatsAppPage() {
   const mounted = useMounted()
   const [search, setSearch] = useState('')
@@ -169,16 +166,14 @@ export default function WhatsAppPage() {
     endRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [chats, activeChatId, isTyping])
 
-  /* textarea auto-resize */
-  useEffect(() => {
+    useEffect(() => {
     const el = taRef.current
     if (!el) return
     el.style.height = 'auto'
     el.style.height = Math.min(el.scrollHeight, 120) + 'px'
   }, [input])
 
-  /* enrich chats */
-  const enriched = useMemo(() =>
+    const enriched = useMemo(() =>
     chats.map(c => ({
       ...c,
       tags: customers.find(cu => cu.id === c.customerId)?.tags ?? [],
@@ -242,14 +237,13 @@ export default function WhatsAppPage() {
     toast.success('Invoice sent via WhatsApp! ✅')
   }
 
-  /* ── Render ─────────────────────────────────── */
-  return (
+    return (
     <div className="wa-root">
 
-      {/* ════════════ CHAT LIST ════════════ */}
+      {}
       <div className={cn('wa-list', activeChatId ? 'wa-list--hidden' : 'wa-list--visible')}>
 
-        {/* List Header */}
+        {}
         <div className="flex items-center gap-3 px-4 py-3 border-b border-border bg-card/95 backdrop-blur-sm flex-shrink-0">
           <div className="flex-1 min-w-0">
             <h1 className="text-[15px] font-black text-foreground tracking-tight">WhatsApp CRM</h1>
@@ -282,12 +276,12 @@ export default function WhatsAppPage() {
           </div>
         </div>
 
-        {/* Search */}
+        {}
         <div className="px-3 py-2 border-b border-border/50 bg-background/50 flex-shrink-0">
           <SearchInput placeholder="Search chats..." value={search} onChange={setSearch} />
         </div>
 
-        {/* Chat rows */}
+        {}
         <div className="flex-1 overflow-y-auto overscroll-contain">
           {!mounted ? (
             <ChatSkeleton />
@@ -311,7 +305,7 @@ export default function WhatsAppPage() {
                     : 'border-l-transparent hover:bg-muted/30'
                 )}
               >
-                {/* Avatar */}
+                {}
                 <div className="relative flex-shrink-0">
                   <div className="w-11 h-11 rounded-full bg-gradient-to-br from-brand-500 to-violet-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">
                     {getInitials(chat.customerName)}
@@ -320,7 +314,7 @@ export default function WhatsAppPage() {
                     <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full ring-2 ring-background" />
                   )}
                 </div>
-                {/* Text */}
+                {}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-0.5">
                     <p className="text-sm font-bold text-foreground truncate pr-2">{chat.customerName}</p>
@@ -354,7 +348,7 @@ export default function WhatsAppPage() {
         </div>
       </div>
 
-      {/* ════════════ CHAT PANEL ════════════ */}
+      {}
       <AnimatePresence>
         {activeChatId && (
           <motion.div
@@ -367,7 +361,7 @@ export default function WhatsAppPage() {
           >
             <Wallpaper />
 
-            {/* Chat header */}
+            {}
             <div className="relative z-20 flex items-center gap-2.5 px-3 py-2.5 border-b border-border bg-card/92 backdrop-blur-xl shadow-sm flex-shrink-0">
               <button
                 onClick={() => setActiveChat(null)}
@@ -412,7 +406,7 @@ export default function WhatsAppPage() {
               </div>
             </div>
 
-            {/* Messages */}
+            {}
             <div
               ref={msgsRef}
               className="flex-1 overflow-y-auto overscroll-contain relative z-10 py-3 space-y-1"
@@ -444,7 +438,7 @@ export default function WhatsAppPage() {
               <div ref={endRef} className="h-3" />
             </div>
 
-            {/* Templates tray */}
+            {}
             <AnimatePresence>
               {showTemplates && (
                 <motion.div
@@ -475,10 +469,10 @@ export default function WhatsAppPage() {
               )}
             </AnimatePresence>
 
-            {/* Input bar */}
+            {}
             <div className="relative z-20 flex-shrink-0 bg-card/90 backdrop-blur-xl border-t border-border/60 px-3 pt-2 pb-[max(10px,env(safe-area-inset-bottom,10px))]">
               <div className="flex items-end gap-2">
-                {/* Left actions */}
+                {}
                 <div className="flex gap-1.5 items-center pb-0.5 flex-shrink-0">
                   <button
                     onClick={() => setShowTemplates(v => !v)}
@@ -491,7 +485,7 @@ export default function WhatsAppPage() {
                   >
                     <Sparkles className="w-4 h-4" />
                   </button>
-                  {/* Invoice shortcut on mobile only */}
+                  {}
                   <button
                     onClick={sendInvoice}
                     className="sm:hidden w-9 h-9 flex items-center justify-center rounded-full border border-border/60 bg-muted/60 text-muted-foreground hover:bg-muted hover:text-foreground transition-all active:scale-90"
@@ -500,7 +494,7 @@ export default function WhatsAppPage() {
                   </button>
                 </div>
 
-                {/* Textarea */}
+                {}
                 <textarea
                   ref={taRef}
                   value={input}
@@ -517,7 +511,7 @@ export default function WhatsAppPage() {
                   style={{ WebkitAppearance: 'none' } as React.CSSProperties}
                 />
 
-                {/* Send */}
+                {}
                 <motion.button
                   whileTap={{ scale: 0.88 }}
                   onClick={() => send(input)}
@@ -539,7 +533,7 @@ export default function WhatsAppPage() {
         )}
       </AnimatePresence>
 
-      {/* Desktop empty state (no chat selected) */}
+      {}
       {!activeChatId && (
         <div className="hidden lg:flex flex-1 flex-col items-center justify-center bg-muted/10 relative overflow-hidden">
           <Wallpaper />
@@ -557,7 +551,7 @@ export default function WhatsAppPage() {
         </div>
       )}
 
-      {/* Analytics bottom sheet */}
+      {}
       <BottomSheet open={showAnalytics} onClose={() => setShowAnalytics(false)} title="Chat Analytics">
         <div className="px-5 pb-6 pt-2 space-y-4">
           <div className="grid grid-cols-2 gap-3">

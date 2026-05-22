@@ -65,7 +65,7 @@ export default function AnalyticsPage() {
         <StatsCard title="Repeat Rate" value={analyticsData.repeatCustomerRate} suffix="%" change={4.2} icon={RefreshCw} variant="orange" />
       </motion.div>
 
-      {/* Revenue Chart */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
         className="bg-card border border-border rounded-2xl p-5"
@@ -94,9 +94,9 @@ export default function AnalyticsPage() {
         </ResponsiveContainer>
       </motion.div>
 
-      {/* Bottom Row: Products + Hourly */}
+      {}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {/* Best Sellers Pie */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
           className="bg-card border border-border rounded-2xl p-5"
@@ -126,7 +126,7 @@ export default function AnalyticsPage() {
           </div>
         </motion.div>
 
-        {/* Peak Order Times */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}
           className="bg-card border border-border rounded-2xl p-5"
@@ -149,7 +149,7 @@ export default function AnalyticsPage() {
         </motion.div>
       </div>
 
-      {/* Repeat Customer Rate */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
         className="bg-card border border-border rounded-2xl p-6"

@@ -3,11 +3,9 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import {
-  Package, AlertTriangle, TrendingDown, Plus, Search, Filter,
-  ArrowUpRight, MoreHorizontal, Truck, RefreshCw
+  Package, AlertTriangle, TrendingDown, Search, Truck
 } from 'lucide-react'
 import { PageHeader } from '@/components/ui/PageHeader'
-import { Skeleton } from '@/components/ui/LoadingSkeleton'
 import { cn } from '@/lib/utils'
 import toast from 'react-hot-toast'
 
@@ -52,7 +50,7 @@ export default function InventoryPage() {
         badge={criticalCount > 0 ? `${criticalCount} Critical` : undefined}
       />
 
-      {/* Summary cards */}
+      {}
       <div className="grid grid-cols-3 gap-4">
         {[
           { label: 'Critical',  count: criticalCount, icon: AlertTriangle, color: 'text-red-600',    bg: 'bg-red-50 dark:bg-red-900/20',    border: 'border-red-100 dark:border-red-900/30' },
@@ -82,7 +80,7 @@ export default function InventoryPage() {
         })}
       </div>
 
-      {/* Table */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}

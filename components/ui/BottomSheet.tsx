@@ -13,8 +13,7 @@ interface BottomSheetProps {
   description?: string
   children: React.ReactNode
   className?: string
-  /** Desktop modal width — same as AnimatedModal sizes */
-  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full'
+    size?: 'sm' | 'md' | 'lg' | 'xl' | 'full'
 }
 
 const sizeClasses = {
@@ -25,14 +24,14 @@ const sizeClasses = {
   full: 'md:max-w-4xl',
 }
 
-// Mobile: classic bottom sheet spring
+
 const mobileSheet: Variants = {
   hidden:  { y: '100%' },
   visible: { y: 0, transition: { type: 'spring', damping: 28, stiffness: 300, mass: 0.8 } },
   exit:    { y: '100%', transition: { duration: 0.22, ease: 'easeIn' } },
 }
 
-// Desktop: elegant scale-in
+
 const desktopModal: Variants = {
   hidden:  { opacity: 0, scale: 0.96, y: 12 },
   visible: { opacity: 1, scale: 1,    y: 0,  transition: { duration: 0.22, ease: [0.16, 1, 0.3, 1] } },
@@ -104,10 +103,10 @@ export function BottomSheet({
                 className,
               )}
             >
-              {/* Decorative gradient top bar */}
+              {}
               <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-brand-500 via-violet-500 to-brand-500 opacity-70 rounded-t-2xl" />
 
-              {/* Header */}
+              {}
               {(title || description) && (
                 <div className="flex items-start justify-between px-6 pt-5 pb-4 border-b border-border/60 flex-shrink-0">
                   <div className="flex-1 min-w-0 pr-4">
@@ -127,7 +126,7 @@ export function BottomSheet({
                 </div>
               )}
 
-              {/* Scrollable body */}
+              {}
               <div className="overflow-y-auto flex-1 scrollbar-thin">
                 {children}
               </div>
@@ -139,19 +138,18 @@ export function BottomSheet({
     )
   }
 
-  /* ─── MOBILE: Bottom sheet ──────────────────────────────────── */
-  return createPortal(
+    return createPortal(
     <AnimatePresence>
       {open && (
         <div className="fixed inset-0 z-[100] flex flex-col justify-end">
-          {/* Overlay */}
+          {}
           <motion.div
             variants={overlay} initial="hidden" animate="visible" exit="exit"
             onClick={onClose}
             className="absolute inset-0 bg-black/55 backdrop-blur-sm"
           />
 
-          {/* Sheet */}
+          {}
           <motion.div
             variants={mobileSheet} initial="hidden" animate="visible" exit="exit"
             drag="y"
@@ -167,15 +165,15 @@ export function BottomSheet({
               className,
             )}
           >
-            {/* Gradient accent */}
+            {}
             <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-brand-500 via-violet-500 to-brand-500 opacity-60 rounded-t-[28px]" />
 
-            {/* Drag handle */}
+            {}
             <div className="w-full flex justify-center pt-3 pb-1 flex-shrink-0">
               <div className="w-10 h-1 bg-muted-foreground/20 rounded-full" />
             </div>
 
-            {/* Header */}
+            {}
             {(title || description) && (
               <div className="flex items-start justify-between px-5 pb-4 pt-2 border-b border-border/50 flex-shrink-0">
                 <div className="flex-1 min-w-0 pr-3">
@@ -191,7 +189,7 @@ export function BottomSheet({
               </div>
             )}
 
-            {/* Scrollable body — leave space for iPhone home indicator */}
+            {}
             <div className="overflow-y-auto flex-1 scrollbar-thin pb-[env(safe-area-inset-bottom,16px)]">
               {children}
             </div>

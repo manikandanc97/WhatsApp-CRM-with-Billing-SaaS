@@ -1,11 +1,10 @@
 'use client'
 
 import { useEffect, useState, useMemo } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { 
-  Plus, Filter, Package, MapPin, Calendar, CreditCard, Truck, 
-  LayoutGrid, Kanban, Download, Trash2, Edit3, ChevronLeft, ChevronRight, 
-  Search, X, Check, ArrowRight, UserPlus, Info, Cake, Clock, Phone
+  Plus, Package, MapPin, Calendar, CreditCard, Truck, 
+  LayoutGrid, Kanban, Download, Trash2, Edit3, ChevronLeft, ChevronRight, Check, ArrowRight, UserPlus, Info, Cake, Phone
 } from 'lucide-react'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { SearchInput } from '@/components/ui/SearchInput'
@@ -17,7 +16,6 @@ import { staggerContainer, staggerItem } from '@/lib/animations'
 import { useAppStore } from '@/store/useAppStore'
 import { useMounted } from '@/hooks/useMounted'
 import { formatCurrency, formatDate, generateId, generateOrderNumber } from '@/lib/utils'
-import ordersData from '@/data/orders.json'
 import productsData from '@/data/products.json'
 import type { Order, OrderStatus, PaymentStatus, DeliveryType, Customer, OrderItem } from '@/types'
 import toast from 'react-hot-toast'
@@ -48,11 +46,11 @@ export default function OrdersPage() {
   const [activeTab, setActiveTab] = useState('all')
   const [viewMode, setViewMode] = useState<'grid' | 'kanban'>('grid')
   
-  // Pagination State
+  
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 6
 
-  // Modals & Active Selections
+  
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null)
   const [showCreateModal, setShowCreateModal] = useState(false)
   const [showEditModal, setShowEditModal] = useState(false)
@@ -61,7 +59,7 @@ export default function OrdersPage() {
   const [orderToEdit, setOrderToEdit] = useState<Order | null>(null)
   const [orderToDelete, setOrderToDelete] = useState<Order | null>(null)
 
-  // Drag over states for Kanban columns
+  
   const [dragOverColumn, setDragOverColumn] = useState<string | null>(null)
 
   const { 
@@ -69,7 +67,7 @@ export default function OrdersPage() {
     customers, addCustomer, updateCustomer 
   } = useAppStore()
 
-  // --- Filtering & Sorting ---
+  
   const filtered = useMemo(() => {
     return orders.filter((o) => {
       const matchTab = activeTab === 'all' || o.status === activeTab
@@ -82,7 +80,7 @@ export default function OrdersPage() {
     })
   }, [orders, search, activeTab])
 
-  // --- Pagination ---
+  
   const paginatedOrders = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage
     return filtered.slice(startIndex, startIndex + itemsPerPage)
@@ -90,20 +88,20 @@ export default function OrdersPage() {
 
   const totalPages = Math.ceil(filtered.length / itemsPerPage)
 
-  // Reset page on search/filter changes
+  
   useEffect(() => {
     setCurrentPage(1)
   }, [search, activeTab])
 
-  // --- Form States & Handlers ---
+  
   const [isNewCustomer, setIsNewCustomer] = useState(false)
   
-  // Create Order Fields
+  
   const [formCustomerId, setFormCustomerId] = useState('')
   const [formCustName, setFormCustName] = useState('')
   const [formCustPhone, setFormCustPhone] = useState('')
   const [formProductId, setFormProductId] = useState(productsData[0]?.id || '')
-  const [formWeight, setFormWeight] = useState('1.0') // kg
+  const [formWeight, setFormWeight] = useState('1.0') 
   const [formQty, setFormQty] = useState(1)
   const [formCustomText, setFormCustomText] = useState('')
   const [formDeliveryType, setFormDeliveryType] = useState<DeliveryType>('delivery')
@@ -112,7 +110,7 @@ export default function OrdersPage() {
   const [formNotes, setFormNotes] = useState('')
   const [formPaymentStatus, setFormPaymentStatus] = useState<PaymentStatus>('unpaid')
 
-  // Auto-populate customer details if existing customer is selected
+  
   useEffect(() => {
     if (formCustomerId && formCustomerId !== 'new') {
       const cust = customers.find(c => c.id === formCustomerId)
@@ -126,30 +124,30 @@ export default function OrdersPage() {
     }
   }, [formCustomerId, customers])
 
-  // Get selected product price
+  
   const selectedProduct = useMemo(() => {
     return productsData.find(p => p.id === formProductId)
   }, [formProductId])
 
-  // Live total calculations
+  
   const totals = useMemo(() => {
     if (!selectedProduct) return { subtotal: 0, tax: 0, total: 0, unitPrice: 0 }
     
-    // Calculate weight factor
+    
     const weightNum = parseFloat(formWeight) || 1.0
     const basePrice = selectedProduct.price
     const itemPrice = Math.round(basePrice * weightNum)
     
     const subtotal = itemPrice * formQty
-    const tax = Math.round(subtotal * 0.05) // 5% GST
+    const tax = Math.round(subtotal * 0.05) 
     const total = subtotal + tax
 
     return { subtotal, tax, total, unitPrice: itemPrice }
   }, [selectedProduct, formWeight, formQty])
 
-  // Add Order Submission
+  
   function handleCreateOrder() {
-    // Validations
+    
     if (formCustomerId === 'new' || isNewCustomer) {
       if (!formCustName.trim() || !formCustPhone.trim()) {
         toast.error('Customer name and phone are required')
@@ -172,7 +170,7 @@ export default function OrdersPage() {
 
     let finalCustomerId = formCustomerId
 
-    // Create a new customer in store if requested
+    
     if (isNewCustomer || formCustomerId === 'new') {
       const newCustId = generateId()
       const newCust: Customer = {
@@ -181,7 +179,7 @@ export default function OrdersPage() {
         phone: formCustPhone,
         avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${formCustName}`,
         joinedAt: new Date().toISOString().split('T')[0],
-        loyaltyPoints: 100, // Welcome points
+        loyaltyPoints: 100, 
         totalSpent: totals.total,
         orderCount: 1,
         tags: ['New'],
@@ -191,10 +189,10 @@ export default function OrdersPage() {
       finalCustomerId = newCustId
       toast.success(`Created customer account for ${formCustName}!`)
     } else {
-      // Update existing customer count and total spent
+      
       const existing = customers.find(c => c.id === formCustomerId)
       if (existing) {
-        const addedPoints = Math.round(totals.total * 0.05) // 5% of order value back as points
+        const addedPoints = Math.round(totals.total * 0.05) 
         updateCustomer(formCustomerId, {
           orderCount: (existing.orderCount || 0) + 1,
           totalSpent: (existing.totalSpent || 0) + totals.total,
@@ -253,10 +251,10 @@ export default function OrdersPage() {
     setIsNewCustomer(false)
   }
 
-  // --- Edit Order Handling ---
+  
   function openEditModal(order: Order) {
     setOrderToEdit(order)
-    // Prepopulate Edit Form States
+    
     setEditStatus(order.status)
     setEditPaymentStatus(order.paymentStatus)
     setEditDeliveryType(order.deliveryType)
@@ -310,7 +308,7 @@ export default function OrdersPage() {
     setOrderToEdit(null)
   }
 
-  // --- Delete Handling ---
+  
   function triggerDelete(order: Order) {
     setOrderToDelete(order)
     setShowDeleteModal(true)
@@ -328,7 +326,7 @@ export default function OrdersPage() {
     }
   }
 
-  // --- Kanban drag and drop simulation ---
+  
   const handleDragStart = (e: React.DragEvent, id: string) => {
     e.dataTransfer.setData('text/plain', id)
   }
@@ -352,17 +350,17 @@ export default function OrdersPage() {
     }
   }
 
-  // Quick state advance
+  
   function handleStatusUpdate(orderId: string, status: OrderStatus) {
     updateOrder(orderId, { status, updatedAt: new Date().toISOString() })
     toast.success(`Order marked as ${status}`)
-    // Sync UI selection if open
+    
     if (selectedOrder && selectedOrder.id === orderId) {
       setSelectedOrder({ ...selectedOrder, status })
     }
   }
 
-  // --- CSV Export ---
+  
   function exportCSV() {
     if (filtered.length === 0) {
       toast.error('No orders to export!')
@@ -425,7 +423,7 @@ export default function OrdersPage() {
         }
       />
 
-      {/* Control Panel: Filters & View Switchers */}
+      {}
       <div className="bg-card border border-border rounded-2xl p-3 sm:p-4 flex flex-row items-center justify-between gap-3 sm:gap-4 shadow-sm">
         <div className="flex-1 min-w-0">
           <SearchInput
@@ -460,7 +458,7 @@ export default function OrdersPage() {
         </div>
       </div>
 
-      {/* Tabs list (Only shown in Grid/List view to optimize filters) */}
+      {}
       {viewMode === 'grid' && (
         <div className="flex gap-1.5 overflow-x-auto scrollbar-thin pb-1">
           {STATUS_TABS.map((tab) => {
@@ -489,7 +487,7 @@ export default function OrdersPage() {
         </div>
       )}
 
-      {/* --- Main Content Area --- */}
+      {}
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {Array.from({ length: 6 }).map((_, i) => <CardSkeleton key={i} />)}
@@ -502,7 +500,7 @@ export default function OrdersPage() {
         />
       ) : (
         <>
-          {/* ─── MOBILE VIEW (< lg) ─── */}
+          {}
           <div className="lg:hidden space-y-4">
             <motion.div
               variants={staggerContainer}
@@ -527,7 +525,7 @@ export default function OrdersPage() {
                     variants={staggerItem}
                     className="relative touch-pan-y"
                   >
-                    {/* Swipe Actions Background Layer */}
+                    {}
                     <div className="absolute inset-y-0 right-0 w-1/2 bg-emerald-500/10 rounded-3xl flex items-center justify-end px-6 z-0">
                       <span className="text-emerald-600 dark:text-emerald-400 font-bold text-sm flex items-center gap-1.5">
                         Advance <ArrowRight className="w-4 h-4" />
@@ -545,7 +543,7 @@ export default function OrdersPage() {
                       }}
                       whileTap={{ scale: 0.98 }}
                       onClick={(e) => {
-                        // Prevent click if we were dragging
+                        
                         const isDragging = (e.target as HTMLElement).closest('.dragging')
                         if (!isDragging) {
                           setSelectedOrder(order)
@@ -553,7 +551,7 @@ export default function OrdersPage() {
                       }}
                       className="bg-card/80 backdrop-blur-xl border border-white/20 dark:border-white/5 rounded-3xl p-5 relative z-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.1)] transition-shadow flex flex-col gap-3"
                     >
-                      {/* Top Row: Avatar/Customer & Status */}
+                      {}
                       <div className="flex justify-between items-start">
                         <div className="flex gap-3 items-center">
                           <div className={cn(
@@ -572,7 +570,7 @@ export default function OrdersPage() {
                         <StatusBadge status={order.status} dot />
                       </div>
 
-                      {/* Order Items */}
+                      {}
                       <div className="bg-muted/40 rounded-2xl p-3.5 space-y-2 mt-1">
                         {order.items.map((item, i) => (
                           <div key={i} className="flex justify-between items-start text-sm">
@@ -589,7 +587,7 @@ export default function OrdersPage() {
                         ))}
                       </div>
 
-                      {/* Bottom Row: Logistics & Action Pill */}
+                      {}
                       <div className="flex items-center justify-between mt-2">
                         <div className="flex items-center gap-2.5 text-[12px] font-semibold text-muted-foreground">
                           <div className="flex items-center gap-1.5">
@@ -603,7 +601,7 @@ export default function OrdersPage() {
                           </div>
                         </div>
                         
-                        {/* Quick Action Pill */}
+                        {}
                         {nextActionStatus && ActionIcon && (
                           <button 
                             onClick={(e) => {
@@ -626,7 +624,7 @@ export default function OrdersPage() {
               })}
             </motion.div>
 
-            {/* --- Mobile Pagination Controls --- */}
+            {}
             {totalPages > 1 && (
               <div className="flex items-center justify-between bg-card border border-border/60 rounded-xl px-4 py-3">
                 <p className="text-[10px] text-muted-foreground">
@@ -656,7 +654,7 @@ export default function OrdersPage() {
             )}
           </div>
 
-          {/* ─── DESKTOP VIEW (≥ lg) ─── */}
+          {}
           <div className="hidden lg:block space-y-4">
             {viewMode === 'grid' ? (
               <>
@@ -740,7 +738,7 @@ export default function OrdersPage() {
                   </table>
                 </div>
 
-                {/* --- Desktop Pagination Controls --- */}
+                {}
                 {totalPages > 1 && (
                   <div className="flex items-center justify-between bg-card border border-border/60 rounded-xl px-4 py-3 shadow-sm">
                     <p className="text-xs text-muted-foreground">
@@ -770,8 +768,7 @@ export default function OrdersPage() {
                 )}
               </>
             ) : (
-              /* --- Kanban View --- */
-              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 min-h-[500px]">
+                            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 min-h-[500px]">
                 {KANBAN_COLUMNS.map((col) => {
                   const colOrders = filtered.filter(o => o.status === col.value)
                   const isOver = dragOverColumn === col.value
@@ -787,7 +784,7 @@ export default function OrdersPage() {
                         isOver && "border-brand-500/50 bg-brand-50/5 dark:bg-brand-950/5 ring-2 ring-brand-500/20"
                       )}
                     >
-                      {/* Column Header */}
+                      {}
                       <div className="flex items-center justify-between mb-3 pb-2 border-b border-border/60">
                         <div className="flex items-center gap-1.5">
                           <span className={cn("text-xs font-bold capitalize", col.color)}>{col.label}</span>
@@ -797,7 +794,7 @@ export default function OrdersPage() {
                         </div>
                       </div>
 
-                      {/* Column Content */}
+                      {}
                       <div className="flex-1 space-y-2.5 overflow-y-auto scrollbar-none max-h-[600px] pb-4">
                         {colOrders.length === 0 ? (
                           <div className="flex flex-col items-center justify-center h-32 border-2 border-dashed border-border/60 rounded-xl text-muted-foreground/60 text-xs font-medium">
@@ -812,7 +809,7 @@ export default function OrdersPage() {
                               onClick={() => setSelectedOrder(order)}
                               className="bg-card border border-border/80 rounded-xl p-3 hover:shadow-md transition-all duration-150 cursor-grab active:cursor-grabbing group relative overflow-hidden"
                             >
-                              {/* Status indicator pill on left side */}
+                              {}
                               <div className={cn(
                                 "absolute left-0 top-0 bottom-0 w-1",
                                 order.paymentStatus === 'paid' ? 'bg-emerald-500' : 'bg-amber-500'
@@ -857,7 +854,7 @@ export default function OrdersPage() {
         </>
       )}
 
-      {/* --- Detail Bottom Sheet --- */}
+      {}
       <BottomSheet
         open={!!selectedOrder}
         onClose={() => setSelectedOrder(null)}
@@ -888,7 +885,7 @@ export default function OrdersPage() {
               </div>
             </div>
 
-            {/* Customer Details Box */}
+            {}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 border border-border/80 rounded-xl p-4">
               <div>
                 <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Client details</span>
@@ -907,7 +904,7 @@ export default function OrdersPage() {
               </div>
             </div>
 
-            {/* Items Table */}
+            {}
             <div>
               <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block mb-3">Cake Products & custom modifications</span>
               <div className="border border-border rounded-xl overflow-hidden bg-card">
@@ -939,7 +936,7 @@ export default function OrdersPage() {
               </div>
             </div>
 
-            {/* Price Calculations */}
+            {}
             <div className="bg-muted/30 border border-border/80 rounded-xl p-4 ml-auto max-w-sm space-y-2.5">
               <div className="flex justify-between text-xs text-muted-foreground">
                 <span>Subtotal</span>
@@ -962,7 +959,7 @@ export default function OrdersPage() {
               </div>
             )}
 
-            {/* Workflow Control in Detail Modal */}
+            {}
             <div className="flex items-center gap-2 border-t border-border pt-4 justify-between">
               <span className="text-xs text-muted-foreground font-semibold">Advance status stage:</span>
               <div className="flex gap-1.5 flex-wrap">
@@ -1016,7 +1013,7 @@ export default function OrdersPage() {
         )}
       </BottomSheet>
 
-      {/* --- Create Order Modal --- */}
+      {}
       <BottomSheet
         open={showCreateModal}
         onClose={() => {
@@ -1028,7 +1025,7 @@ export default function OrdersPage() {
         size="lg"
       >
         <div className="p-6 space-y-8">
-          {/* Section 1: Customer Details */}
+          {}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
@@ -1036,7 +1033,7 @@ export default function OrdersPage() {
                 Customer Information
               </h3>
               
-              {/* Modern Segmented Control for New/Existing Customer */}
+              {}
               <div className="bg-muted p-1 rounded-xl flex items-center">
                 <button
                   type="button"
@@ -1198,7 +1195,7 @@ export default function OrdersPage() {
             </div>
           </div>
 
-          {/* Section 3: Delivery & Logistics */}
+          {}
           <div className="space-y-4">
             <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
               <Truck className="w-4 h-4 text-brand-500" />
@@ -1270,7 +1267,7 @@ export default function OrdersPage() {
             </div>
           </div>
 
-          {/* Section 4: Notes & Payment */}
+          {}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1.5">
               <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
@@ -1312,9 +1309,9 @@ export default function OrdersPage() {
             </div>
           </div>
 
-          {/* Section 5: Pricing Live Output */}
+          {}
           <div className="relative overflow-hidden bg-gradient-to-br from-brand-600 to-brand-800 dark:from-brand-500 dark:to-brand-700 rounded-2xl p-5 sm:p-6 text-white shadow-xl shadow-brand-500/20">
-            {/* Decorative background circles */}
+            {}
             <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             
@@ -1332,7 +1329,7 @@ export default function OrdersPage() {
             </div>
           </div>
 
-          {/* Action Buttons */}
+          {}
           <div className="flex gap-3 pt-2">
             <button
               type="button"
@@ -1355,7 +1352,7 @@ export default function OrdersPage() {
         </div>
       </BottomSheet>
 
-      {/* --- Edit Order Modal --- */}
+      {}
       <BottomSheet
         open={showEditModal}
         onClose={() => {
@@ -1368,7 +1365,7 @@ export default function OrdersPage() {
       >
         <div className="p-6 space-y-5">
 
-          {/* Status Section */}
+          {}
           <div className="modal-section space-y-4">
             <p className="modal-section-title">
               <span className="w-2 h-2 rounded-full bg-brand-500 inline-block" />
@@ -1405,7 +1402,7 @@ export default function OrdersPage() {
             </div>
           </div>
 
-          {/* Delivery Section */}
+          {}
           <div className="modal-section space-y-4">
             <p className="modal-section-title">
               <span className="w-2 h-2 rounded-full bg-violet-500 inline-block" />
@@ -1447,7 +1444,7 @@ export default function OrdersPage() {
             )}
           </div>
 
-          {/* Customization Section */}
+          {}
           <div className="modal-section space-y-4">
             <p className="modal-section-title">
               <span className="w-2 h-2 rounded-full bg-amber-500 inline-block" />
@@ -1475,7 +1472,7 @@ export default function OrdersPage() {
             </div>
           </div>
 
-          {/* Action Bar */}
+          {}
           <div className="flex gap-3 pt-1">
             <button
               onClick={() => {
@@ -1496,7 +1493,7 @@ export default function OrdersPage() {
         </div>
       </BottomSheet>
 
-      {/* --- Delete Confirmation Modal --- */}
+      {}
       <BottomSheet
         open={showDeleteModal}
         onClose={() => {
@@ -1507,7 +1504,7 @@ export default function OrdersPage() {
         size="sm"
       >
         <div className="p-6 space-y-5">
-          {/* Icon */}
+          {}
           <div className="flex flex-col items-center text-center gap-3 py-2">
             <div className="w-16 h-16 rounded-2xl bg-red-100 dark:bg-red-950/40 flex items-center justify-center shadow-sm ring-4 ring-red-100/50 dark:ring-red-950/30">
               <Trash2 className="w-7 h-7 text-red-600 dark:text-red-400" />
@@ -1522,7 +1519,7 @@ export default function OrdersPage() {
             </div>
           </div>
 
-          {/* Warning note */}
+          {}
           <div className="flex items-start gap-2.5 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/40 rounded-xl p-3.5">
             <Info className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
             <p className="text-xs text-red-700 dark:text-red-400 leading-relaxed">
@@ -1530,7 +1527,7 @@ export default function OrdersPage() {
             </p>
           </div>
 
-          {/* Actions */}
+          {}
           <div className="flex gap-3">
             <button
               onClick={() => {

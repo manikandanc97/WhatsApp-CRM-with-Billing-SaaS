@@ -25,17 +25,6 @@ export function StatsCardSkeleton() {
   )
 }
 
-export function TableRowSkeleton({ cols = 5 }: { cols?: number }) {
-  return (
-    <tr className="border-b border-border">
-      {Array.from({ length: cols }).map((_, i) => (
-        <td key={i} className="px-4 py-3">
-          <Skeleton className="h-4 w-full max-w-[120px]" />
-        </td>
-      ))}
-    </tr>
-  )
-}
 
 export function CardSkeleton() {
   return (

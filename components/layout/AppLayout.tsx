@@ -9,8 +9,10 @@ import { motion, AnimatePresence } from 'framer-motion'
 import toast, { Toaster } from 'react-hot-toast'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
+import { useMounted } from '@/hooks/useMounted'
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
+  const mounted = useMounted()
   const { token, sidebarOpen, addOrder, chats, sendMessage } = useAppStore()
   const pathname = usePathname()
   const router = useRouter()
@@ -22,7 +24,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     pathname === '/reset-password' ||
     pathname === '/otp-verify'
 
-  // Route protection
+  
   useEffect(() => {
     if (!token && !isAuthRoute) {
       router.push('/login')
@@ -31,7 +33,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     }
   }, [token, isAuthRoute, pathname, router])
 
-  // Live Simulator Engine
+  
   useEffect(() => {
     if (!token) return
 
@@ -127,6 +129,13 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       boxShadow: '0 8px 32px 0 rgb(0 0 0 / 0.12)',
     },
   }
+  if (!mounted) {
+    return (
+      <div className="h-dvh w-dvw bg-background flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-brand-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    )
+  }
 
   if (isAuthRoute) {
     return (
@@ -149,12 +158,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         }}
       />
 
-      {/* ════════════════════════════════════════════
-          DESKTOP SIDEBAR  (lg+ only)
-          The Sidebar is fixed-position internally.
-          This spacer div animates to push the main 
-          content area rightward in sync.
-      ════════════════════════════════════════════ */}
+      {}
       <motion.div
         className="hidden lg:block flex-shrink-0"
         animate={{ width: sidebarOpen ? 260 : 72 }}
@@ -162,29 +166,27 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       />
       <Sidebar />
 
-      {/* ════════════════════════════════════════════
-          MAIN CONTENT COLUMN
-      ════════════════════════════════════════════ */}
+      {}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
 
-        {/* Desktop TopNavbar — hidden on mobile */}
+        {}
         <div className="hidden lg:block">
           <TopNavbar />
         </div>
 
-        {/* Mobile Header — hidden on desktop */}
+        {}
         <div className="lg:hidden">
           <MobileHeader />
         </div>
 
-        {/* ── Page content ── */}
+        {}
         <main className={[
           'flex-1 overflow-hidden flex flex-col',
-          // Mobile: offset for fixed MobileHeader top
+          
           'pt-[72px]',
-          // Desktop: no offsets (TopNavbar is in flow)
+          
           'lg:pt-0',
-          // Desktop content background
+          
           'bg-background lg:bg-muted/20',
         ].join(' ')}>
           <AnimatePresence mode="wait">
@@ -196,9 +198,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               transition={{ duration: 0.18 }}
               className={
                 pathname.startsWith('/whatsapp')
-                  // WhatsApp manages its own scrolling internally — must be overflow-hidden
+                  
                   ? 'flex-1 min-h-0 overflow-hidden'
-                  // All other pages: scrollable, with mobile bottom nav clearance
+                  
                   : 'flex-1 min-h-0 overflow-y-auto overflow-x-hidden pb-[88px] lg:pb-0'
               }
             >
@@ -207,7 +209,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           </AnimatePresence>
         </main>
 
-        {/* Mobile Bottom Nav — hidden on desktop */}
+        {}
         <div className="lg:hidden">
           <MobileBottomNav />
         </div>

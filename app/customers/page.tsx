@@ -1,11 +1,11 @@
 'use client'
 
-import { useEffect, useState, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Plus, Star, Gift, Phone, Mail, MapPin,
   ShoppingBag, Calendar, Tag, X, Edit3, Trash2,
-  Clock, History, FileText, CheckCircle2, UserCheck, MessageSquare
+  Clock, History, FileText, UserCheck
 } from 'lucide-react'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { SearchInput } from '@/components/ui/SearchInput'
@@ -17,8 +17,7 @@ import { staggerContainer, staggerItem } from '@/lib/animations'
 import { useAppStore } from '@/store/useAppStore'
 import { useMounted } from '@/hooks/useMounted'
 import { formatCurrency, formatDate, getInitials, generateId } from '@/lib/utils'
-import customersData from '@/data/customers.json'
-import type { Customer, Order } from '@/types'
+import type { Customer } from '@/types'
 import toast from 'react-hot-toast'
 import { cn } from '@/lib/utils'
 
@@ -46,12 +45,12 @@ export default function CustomersPage() {
   const [selected, setSelected] = useState<Customer | null>(null)
   const [profileTab, setProfileTab] = useState<'overview' | 'history' | 'timeline'>('overview')
 
-  // Modals
+  
   const [showAdd, setShowAdd] = useState(false)
   const [showEdit, setShowEdit] = useState(false)
   const [showDelete, setShowDelete] = useState(false)
 
-  // Forms
+  
   const [form, setForm] = useState({ name: '', phone: '', email: '', address: '', birthday: '', notes: '' })
   const [editForm, setEditForm] = useState({ name: '', phone: '', email: '', address: '', birthday: '', notes: '' })
   
@@ -94,7 +93,7 @@ export default function CustomersPage() {
       color: 'bg-emerald-500 text-white'
     })
 
-    // 2. Add orders events
+    
     customerOrders.forEach(o => {
       activities.push({
         id: `order-${o.id}`,
@@ -106,11 +105,11 @@ export default function CustomersPage() {
       })
     })
 
-    // 3. Add custom notes event
+    
     if (selected.notes) {
       activities.push({
         id: 'notes-update',
-        date: selected.joinedAt, // default date or near join
+        date: selected.joinedAt, 
         title: 'Preferences Configured',
         desc: `Baking instructions logged: "${selected.notes}"`,
         icon: FileText,
@@ -118,11 +117,11 @@ export default function CustomersPage() {
       })
     }
 
-    // Sort by date descending
+    
     return activities.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
   }, [selected, customerOrders])
 
-  // Add Customer Action
+  
   function handleAdd() {
     if (!form.name || !form.phone) { 
       toast.error('Name and phone are required')
@@ -138,7 +137,7 @@ export default function CustomersPage() {
       notes: form.notes || undefined,
       avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${form.name}`,
       joinedAt: new Date().toISOString().split('T')[0],
-      loyaltyPoints: 50, // Welcome points
+      loyaltyPoints: 50, 
       totalSpent: 0,
       orderCount: 0,
       tags: ['New'],
@@ -181,7 +180,7 @@ export default function CustomersPage() {
       notes: editForm.notes || undefined
     })
 
-    // Update active selection fields
+    
     setSelected({
       ...selected,
       name: editForm.name,
@@ -196,7 +195,7 @@ export default function CustomersPage() {
     setShowEdit(false)
   }
 
-  // --- Inline Tags Modifications ---
+  
   function handleAddTag(tag: string) {
     if (!selected) return
     const cleanTag = tag.trim()
@@ -264,7 +263,7 @@ export default function CustomersPage() {
         />
       </div>
 
-      {/* Customer Grid */}
+      {}
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {Array.from({ length: 6 }).map((_, i) => <CardSkeleton key={i} />)}
@@ -302,7 +301,7 @@ export default function CustomersPage() {
                 </div>
               )}
 
-              {/* Header */}
+              {}
               <div className="flex items-start gap-4 mb-5">
                 <div className="relative flex-shrink-0">
                   <div className="w-12 h-12 rounded-[18px] bg-gradient-to-br from-brand-100 to-brand-50 dark:from-brand-900/60 dark:to-brand-800/40 text-brand-700 dark:text-brand-300 border border-brand-200/50 dark:border-brand-700/30 flex items-center justify-center font-bold text-lg shadow-sm">
@@ -319,7 +318,7 @@ export default function CustomersPage() {
                 </div>
               </div>
 
-              {/* Tags Row */}
+              {}
               <div className="flex flex-wrap gap-1.5 mb-5 pl-1">
                 {customer.tags.slice(0, 3).map(tag => (
                   <span key={tag} className={cn('text-[9px] font-bold px-2 py-1 rounded-full uppercase tracking-wider border transition-colors', TAG_COLORS[tag] || 'bg-muted/50 text-muted-foreground border-transparent')}>
@@ -333,7 +332,7 @@ export default function CustomersPage() {
                 )}
               </div>
 
-              {/* Metrics Row */}
+              {}
               <div className="grid grid-cols-3 gap-2 pt-4 border-t border-border/40 bg-muted/10 -mx-5 -mb-5 px-5 pb-5 rounded-b-[24px]">
                 <div className="text-center">
                   <p className="text-[15px] font-extrabold text-foreground">{customer.orderCount}</p>
@@ -355,7 +354,7 @@ export default function CustomersPage() {
         </motion.div>
       )}
 
-      {/* --- Rich Customer Drawer --- */}
+      {}
       <AnimatePresence>
         {selected && (
           <div className="fixed inset-0 z-50 flex justify-end">
@@ -373,7 +372,7 @@ export default function CustomersPage() {
               transition={{ type: 'spring', stiffness: 320, damping: 30 }}
               className="relative w-full max-w-lg bg-card border-l border-border flex flex-col h-full shadow-2xl z-10"
             >
-              {/* Drawer Header */}
+              {}
               <div className="p-5 border-b border-border flex items-start justify-between bg-muted/20">
                 <div className="flex items-center gap-3.5">
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-500 to-violet-600 text-white flex items-center justify-center font-bold text-base shadow-sm">
@@ -404,7 +403,7 @@ export default function CustomersPage() {
                 </div>
               </div>
 
-              {/* Drawer Tabs */}
+              {}
               <div className="flex border-b border-border text-xs font-bold text-muted-foreground">
                 <button
                   onClick={() => setProfileTab('overview')}
@@ -435,13 +434,13 @@ export default function CustomersPage() {
                 </button>
               </div>
 
-              {/* Tab Contents */}
+              {}
               <div className="flex-1 overflow-y-auto scrollbar-thin p-5 space-y-6">
                 
                 {profileTab === 'overview' && (
                   <div className="space-y-6 animate-fadeIn">
                     
-                    {/* Basic Info */}
+                    {}
                     <div className="bg-muted/30 border border-border/80 rounded-2xl p-4 space-y-3">
                       <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block">Contact Information</span>
                       {selected.email && (
@@ -468,14 +467,14 @@ export default function CustomersPage() {
                       </div>
                     </div>
 
-                    {/* Interactive Tag Manager */}
+                    {}
                     <div className="bg-muted/30 border border-border/80 rounded-2xl p-4 space-y-3">
                       <div className="flex items-center gap-1.5">
                         <Tag className="w-4 h-4 text-brand-600 dark:text-brand-400" />
                         <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Client Tag Classification</span>
                       </div>
                       
-                      {/* Active tag badges */}
+                      {}
                       <div className="flex flex-wrap gap-1.5">
                         {selected.tags.map(tag => (
                           <span 
@@ -496,7 +495,7 @@ export default function CustomersPage() {
                         ))}
                       </div>
 
-                      {/* Tag Input and preset buttons */}
+                      {}
                       <div className="space-y-2.5 pt-2 border-t border-border/50">
                         <div className="flex gap-2">
                           <input
@@ -529,7 +528,7 @@ export default function CustomersPage() {
                       </div>
                     </div>
 
-                    {/* Interactive Notes Editor */}
+                    {}
                     <div className="bg-muted/30 border border-border/80 rounded-2xl p-4 space-y-3">
                       <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block">Baking & Chef Preferences</span>
                       <textarea
@@ -624,7 +623,7 @@ export default function CustomersPage() {
                             transition={{ delay: index * 0.1 }}
                             className="relative pl-8"
                           >
-                            {/* Dot icon */}
+                            {}
                             <span className={cn(
                               'absolute -left-[13px] top-0.5 w-6 h-6 rounded-full flex items-center justify-center border-2 border-card shadow-sm',
                               act.color
@@ -646,12 +645,12 @@ export default function CustomersPage() {
 
               </div>
 
-              {/* Drawer Action bar */}
+              {}
               <div className="p-5 border-t border-border flex gap-3 bg-muted/20">
                 <button
                   onClick={() => { 
                     toast.success('Loading WhatsApp conversation...') 
-                    // Simulate WhatsApp navigation
+                    
                   }}
                   className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition-colors duration-200"
                 >
@@ -669,7 +668,7 @@ export default function CustomersPage() {
         )}
       </AnimatePresence>
 
-      {/* --- Add Customer Modal --- */}
+      {}
       <AnimatedModal open={showAdd} onClose={() => setShowAdd(false)} title="Register Customer Profile" description="Add a new client to the CRM system." size="md">
         <div className="p-6 space-y-4">
           {[
@@ -743,7 +742,7 @@ export default function CustomersPage() {
         </div>
       </AnimatedModal>
 
-      {/* --- Delete Confirmation Modal --- */}
+      {}
       <AnimatedModal open={showDelete} onClose={() => setShowDelete(false)} title="Delete Customer" size="sm">
         <div className="p-6 space-y-5">
           <div className="flex flex-col items-center text-center gap-3 py-2">

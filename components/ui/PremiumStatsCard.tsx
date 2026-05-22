@@ -100,11 +100,11 @@ export function PremiumStatsCard({
         cfg.card, cfg.glow, className
       )}
     >
-      {/* Top gradient bar */}
+      {}
       <div className={cn('absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r', cfg.topBar)} />
 
       <div className="p-5">
-        {/* Header */}
+        {}
         <div className="flex items-start justify-between mb-4">
           <div>
             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">{title}</p>
@@ -114,7 +114,7 @@ export function PremiumStatsCard({
           </div>
         </div>
 
-        {/* Value + Sparkline */}
+        {}
         <div className="flex items-end justify-between gap-3">
           <div className="space-y-1.5">
             <div className="flex items-baseline gap-1">
@@ -146,7 +146,7 @@ export function PremiumStatsCard({
             )}
           </div>
 
-          {/* Mini sparkline */}
+          {}
           {sparkData && sparkData.length > 0 && (
             <div className="w-20 h-12 flex-shrink-0">
               <AreaChart width={80} height={48} data={sparkData} margin={{ top: 2, right: 0, left: 0, bottom: 0 }}>

@@ -1,20 +1,9 @@
-// Core business types for SweetFlow AI
+
 
 export type OrderStatus = 'pending' | 'confirmed' | 'baking' | 'ready' | 'delivered' | 'cancelled'
 export type PaymentStatus = 'paid' | 'unpaid' | 'partial'
 export type DeliveryType = 'pickup' | 'delivery'
 
-export interface Product {
-  id: string
-  name: string
-  category: string
-  price: number
-  image?: string
-  description: string
-  inStock: boolean
-  popular: boolean
-  salesCount: number
-}
 
 export interface OrderItem {
   productId: string
@@ -110,46 +99,6 @@ export interface InvoiceItem {
   total: number
 }
 
-export interface SalesData {
-  date: string
-  revenue: number
-  orders: number
-}
-
-export interface ProductSales {
-  name: string
-  sales: number
-  revenue: number
-  percentage: number
-}
-
-export interface HourlyData {
-  hour: string
-  orders: number
-}
-
-export interface Analytics {
-  totalRevenue: number
-  totalOrders: number
-  totalCustomers: number
-  avgOrderValue: number
-  repeatCustomerRate: number
-  salesByDay: SalesData[]
-  topProducts: ProductSales[]
-  hourlyOrders: HourlyData[]
-  monthlyRevenue: SalesData[]
-}
-
-export interface Staff {
-  id: string
-  name: string
-  email: string
-  role: 'owner' | 'manager' | 'staff'
-  phone: string
-  joinedAt: string
-  avatar?: string
-  active: boolean
-}
 
 export interface ShopSettings {
   shopName: string
@@ -170,19 +119,3 @@ export interface ShopSettings {
   birthdayReminders: boolean
 }
 
-export interface Activity {
-  id: string
-  type: 'order' | 'payment' | 'message' | 'customer' | 'delivery'
-  title: string
-  description: string
-  time: string
-  icon: string
-  color: string
-}
-
-export interface QuickReply {
-  id: string
-  label: string
-  message: string
-  emoji: string
-}

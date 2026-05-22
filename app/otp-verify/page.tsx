@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useAppStore } from '@/store/useAppStore'
-import { ArrowLeft, KeyRound, Sparkles } from 'lucide-react'
+import { ArrowLeft, KeyRound } from 'lucide-react'
 import Link from 'next/link'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
@@ -58,7 +58,7 @@ export default function OTPVerifyPage() {
     if (e.key === 'Backspace') {
       const newOtp = [...otp]
       
-      // If current input is empty, clear previous and focus it
+      
       if (!otp[index] && index > 0) {
         newOtp[index - 1] = ''
         setOtp(newOtp)
@@ -126,11 +126,11 @@ export default function OTPVerifyPage() {
       className="w-full max-w-md"
     >
       <div className="bg-card border border-border/80 rounded-3xl p-8 shadow-elevated relative overflow-hidden">
-        {/* Decorative ambient glow */}
+        {}
         <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full bg-brand-500/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-12 -left-12 w-32 h-32 rounded-full bg-violet-500/10 blur-3xl pointer-events-none" />
 
-        {/* Header */}
+        {}
         <div className="flex flex-col items-center mb-8">
           <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-500 to-violet-600 flex items-center justify-center shadow-lg shadow-brand-500/10 mb-3">
             <KeyRound className="w-6 h-6 text-white" />
@@ -141,7 +141,7 @@ export default function OTPVerifyPage() {
           </p>
         </div>
 
-        {/* OTP Input Grid */}
+        {}
         <div className="space-y-6">
           <div className="flex justify-between gap-2.5">
             {otp.map((digit, index) => (

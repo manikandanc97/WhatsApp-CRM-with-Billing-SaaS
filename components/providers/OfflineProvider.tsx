@@ -27,21 +27,21 @@ export function OfflineProvider({ children }: { children: React.ReactNode }) {
         toast.error(`⚠️ ${failed} item${failed > 1 ? 's' : ''} failed to sync. Will retry.`, { duration: 4000 })
       }
     } catch {
-      // silent fail — will retry on next reconnect
+      
     } finally {
       setSyncing(false)
       syncLockRef.current = false
     }
   }, [setSyncing, setPendingCount, setLastSyncTime])
 
-  // Refresh pending count periodically
+  
   const refreshPendingCount = useCallback(async () => {
     const count = await getPendingSyncCount()
     setPendingCount(count)
   }, [setPendingCount])
 
   useEffect(() => {
-    // Initialize online state
+    
     const initialOnline = navigator.onLine
     setOnline(initialOnline)
     refreshPendingCount()
@@ -53,7 +53,7 @@ export function OfflineProvider({ children }: { children: React.ReactNode }) {
         duration: 3000,
         style: { background: '#052e16', color: '#86efac', border: '1px solid #166534' },
       })
-      // Trigger sync after a short delay to let the connection stabilize
+      
       setTimeout(() => syncNow(), 1500)
     }
 
@@ -69,10 +69,10 @@ export function OfflineProvider({ children }: { children: React.ReactNode }) {
     window.addEventListener('online', handleOnline)
     window.addEventListener('offline', handleOffline)
 
-    // Poll pending count every 30s
+    
     const pollInterval = setInterval(refreshPendingCount, 30000)
 
-    // Auto-sync if online on mount and has pending items
+    
     if (initialOnline) {
       getPendingSyncCount().then((count) => {
         if (count > 0) syncNow()

@@ -1,15 +1,14 @@
 'use client'
 
-import { useEffect, useState, useMemo, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Plus, Download, Trash2, Eye, FileText, BellRing, Search, WifiOff, CloudOff, CheckCircle2 } from 'lucide-react'
+import { useState, useMemo, useCallback } from 'react'
+import { motion } from 'framer-motion'
+import { Plus, Download, Trash2, Eye, FileText, BellRing } from 'lucide-react'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { StatusBadge } from '@/components/ui/StatusBadge'
 import { BottomSheet } from '@/components/ui/BottomSheet'
 import { NumericKeypad } from '@/components/ui/NumericKeypad'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { SearchInput } from '@/components/ui/SearchInput'
-import { StatsCardSkeleton } from '@/components/ui/LoadingSkeleton'
 import { staggerContainer, staggerItem } from '@/lib/animations'
 import { useAppStore } from '@/store/useAppStore'
 import { useMounted } from '@/hooks/useMounted'
@@ -17,7 +16,6 @@ import { useOfflineStore } from '@/store/offline'
 import { db } from '@/db'
 import { queueSyncAction, getPendingSyncCount } from '@/services/sync/engine'
 import { formatCurrency, formatDate, generateId, generateInvoiceNumber, calculateGST } from '@/lib/utils'
-import customersData from '@/data/customers.json'
 import type { Invoice, InvoiceItem, Chat, Message } from '@/types'
 import toast from 'react-hot-toast'
 import { cn } from '@/lib/utils'
@@ -47,7 +45,7 @@ export default function BillingPage() {
     customers, setCustomers, chats, setChats, sendMessage 
   } = useAppStore()
 
-  // Form states
+  
   const [form, setForm] = useState({
     customerId: '',
     dueDate: '',
@@ -59,7 +57,7 @@ export default function BillingPage() {
 
   const selectedCustomer = customers.find(c => c.id === form.customerId)
 
-  // Live calculations
+  
   const subtotal = items.reduce((s, i) => s + i.quantity * (i.unitPrice || 0), 0)
   const taxAmount = calculateGST(subtotal, form.taxRate)
   const total = subtotal + taxAmount
@@ -73,7 +71,7 @@ export default function BillingPage() {
     }))
   }
 
-  // Add Invoice — Offline-First
+  
   const handleCreate = useCallback(async () => {
     if (!form.customerId || items.some(i => !i.description)) {
       toast.error('Please associate a customer and fill out items list')
@@ -102,10 +100,10 @@ export default function BillingPage() {
       notes: form.notes || undefined,
     }
     
-    // 1. Save to Zustand (instant UI update)
+    
     addInvoice(invoice)
 
-    // 2. Persist to IndexedDB (offline-first)
+    
     try {
       await db.bills.add({
         id: invoiceId,
@@ -129,16 +127,16 @@ export default function BillingPage() {
         isSynced: isOnline,
       })
 
-      // 3. Queue sync action if offline, or mark as immediate sync
+      
       await queueSyncAction('CREATE', 'BILL', invoiceId, invoice)
       const count = await getPendingSyncCount()
       setPendingCount(count)
     } catch (err) {
-      // IndexedDB save failed — data still in Zustand for session
+      
       console.warn('[Offline] Dexie save failed:', err)
     }
 
-    // 4. Toast feedback
+    
     if (isOnline) {
       toast.success(`✅ Invoice ${invoice.invoiceNumber} saved & syncing!`)
     } else {
@@ -154,11 +152,11 @@ export default function BillingPage() {
     setItems([{ ...EMPTY_ITEM }])
   }, [form, items, customers, subtotal, taxAmount, total, addInvoice, isOnline, setPendingCount])
 
-  // --- Dynamic Reminders via WhatsApp & Local chat engine ---
+  
   function handleSendReminder(inv: Invoice) {
     const textMsg = `Hi ${inv.customerName}, here is a quick invoice payment update. The invoice *${inv.invoiceNumber}* for *${formatCurrency(inv.total)}* is marked as ${inv.status}. Please make payment using UPI: sweetflow@upi. Thank you! - SweetFlow AI`
     
-    // Find or create chat in local state
+    
     let targetChat = chats.find(c => c.customerId === inv.customerId)
     if (!targetChat) {
       const newChatId = generateId()
@@ -178,7 +176,7 @@ export default function BillingPage() {
       targetChat = newChat
     }
 
-    // Append invoice reminder message
+    
     const reminderMsg: Message = {
       id: generateId(),
       chatId: targetChat.id,
@@ -191,7 +189,7 @@ export default function BillingPage() {
 
     sendMessage(targetChat.id, reminderMsg)
 
-    // Open WhatsApp link
+    
     const cleanPhone = inv.customerPhone.replace(/[^0-9]/g, '')
     const finalPhone = cleanPhone.length === 10 ? '91' + cleanPhone : cleanPhone
     const waUrl = `https://wa.me/${finalPhone}?text=${encodeURIComponent(textMsg)}`
@@ -200,24 +198,24 @@ export default function BillingPage() {
     toast.success(`Reminder message appended to customer chat log and WhatsApp link opened!`)
   }
 
-  // Mark status helper — Offline-First
+  
   const handleStatusUpdate = useCallback(async (id: string, newStatus: 'draft' | 'sent' | 'paid' | 'overdue') => {
     updateInvoice(id, { status: newStatus })
     if (previewInvoice?.id === id) {
       setPreviewInvoice({ ...previewInvoice, status: newStatus })
     }
-    // Persist to Dexie
+    
     const dbStatus = newStatus === 'paid' ? 'PAID' : newStatus === 'overdue' ? 'OVERDUE' : newStatus === 'sent' ? 'PENDING' : 'PENDING'
     try {
       await db.bills.update(id, { status: dbStatus, updatedAt: new Date().toISOString(), isSynced: false })
       await queueSyncAction('UPDATE', 'BILL', id, { status: dbStatus })
       const count = await getPendingSyncCount()
       setPendingCount(count)
-    } catch { /* silent */ }
+    } catch {  }
     toast.success(`Invoice marked as ${newStatus}`)
   }, [updateInvoice, previewInvoice, setPendingCount])
 
-  // --- HTML Download template generator ---
+  
   function downloadHTMLInvoice(inv: Invoice) {
     const htmlInvoice = `<!DOCTYPE html>
 <html>
@@ -319,7 +317,7 @@ export default function BillingPage() {
     toast.success('Invoice HTML copy generated! Open it to print/save as PDF.')
   }
 
-  // Filtering
+  
   const filtered = useMemo(() => {
     return invoices.filter((inv) => {
       const matchStatus = statusFilter === 'all' || inv.status === statusFilter
@@ -350,7 +348,7 @@ export default function BillingPage() {
         }
       />
 
-      {/* Quick metrics cards */}
+      {}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {[
           { label: 'Total Invoiced value', value: formatCurrency(invoices.reduce((s, i) => s + i.total, 0)), color: 'text-brand-600', borderTop: 'border-t-brand-500', bg: 'bg-brand-50/20 dark:bg-brand-950/10' },
@@ -365,13 +363,13 @@ export default function BillingPage() {
         ))}
       </div>
 
-      {/* Filters Panel */}
+      {}
       <div className="bg-card border border-border rounded-2xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
         <div className="flex-1 max-w-sm">
           <SearchInput placeholder="Search invoice number, client..." value={search} onChange={setSearch} />
         </div>
 
-        {/* Tab Filters */}
+        {}
         <div className="flex gap-1 overflow-x-auto scrollbar-thin">
           {BILLING_STATUS_TABS.map((tab) => {
             const count = tab.value === 'all' ? invoices.length : invoices.filter(i => i.status === tab.value).length
@@ -393,7 +391,7 @@ export default function BillingPage() {
         </div>
       </div>
 
-      {/* Invoice list grid */}
+      {}
       {filtered.length === 0 ? (
         <EmptyState
           emoji="📄"
@@ -480,13 +478,13 @@ export default function BillingPage() {
         </motion.div>
       )}
 
-      {/* --- Create Invoice Bottom Sheet --- */}
+      {}
       <BottomSheet open={showCreate} onClose={() => setShowCreate(false)} title="Generate Bill Invoice">
         <div className="p-6 space-y-6">
           
-          {/* iOS Grouped Form Settings */}
+          {}
           <div className="bg-card border border-border/80 rounded-[20px] overflow-hidden divide-y divide-border/60 shadow-sm">
-            {/* Customer Select */}
+            {}
             <div className="flex items-center justify-between p-4 bg-muted/10">
               <label className="text-[14px] font-semibold text-foreground whitespace-nowrap mr-4">Client Profile</label>
               <select
@@ -513,7 +511,7 @@ export default function BillingPage() {
               />
             </div>
             
-            {/* GST Rate */}
+            {}
             <div className="flex items-center justify-between p-4 bg-muted/10">
               <label className="text-[14px] font-semibold text-foreground whitespace-nowrap mr-4">GST Rate (%)</label>
               <input
@@ -524,7 +522,7 @@ export default function BillingPage() {
               />
             </div>
             
-            {/* Initial State */}
+            {}
             <div className="flex items-center justify-between p-4 bg-muted/10">
               <label className="text-[14px] font-semibold text-foreground whitespace-nowrap mr-4">Status</label>
               <select
@@ -541,19 +539,19 @@ export default function BillingPage() {
             </div>
           </div>
 
-          {/* Line Items - Mobile Swipeable Cart */}
+          {}
           <div className="space-y-3">
             <label className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider block ml-1">Billing Line Items</label>
             
             <div className="space-y-3 max-h-[300px] overflow-y-auto pr-1 overflow-x-hidden pb-4">
               {items.map((item, idx) => (
                 <div key={idx} className="relative bg-red-500 rounded-2xl overflow-hidden shadow-sm">
-                  {/* Background Delete Action */}
+                  {}
                   <div className="absolute right-0 top-0 bottom-0 w-24 flex items-center justify-center text-white font-bold text-xs gap-1.5 bg-red-500">
                     <Trash2 className="w-4 h-4" /> Delete
                   </div>
                   
-                  {/* Foreground Swipeable Card */}
+                  {}
                   <motion.div
                     drag="x"
                     dragConstraints={{ left: -80, right: 0 }}
@@ -606,7 +604,7 @@ export default function BillingPage() {
             </button>
           </div>
 
-          {/* Totals */}
+          {}
           <div className="bg-muted/40 border border-border/60 rounded-2xl p-4 space-y-2">
             <div className="flex justify-between text-xs text-muted-foreground">
               <span>Subtotal</span>
@@ -639,7 +637,7 @@ export default function BillingPage() {
         </div>
       </BottomSheet>
 
-      {/* Numeric Keypad Bottom Sheet */}
+      {}
       <BottomSheet
         open={!!activeKeypad}
         onClose={() => setActiveKeypad(null)}
@@ -670,13 +668,13 @@ export default function BillingPage() {
         )}
       </BottomSheet>
       
-      {/* Invoice Preview Bottom Sheet */}
+      {}
       <BottomSheet open={!!previewInvoice} onClose={() => setPreviewInvoice(null)} title="Invoice Details">
         {previewInvoice && (
           <div className="p-6 space-y-5">
-            {/* A4 invoice card */}
+            {}
             <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
-              {/* Header */}
+              {}
               <div className="bg-slate-900 p-6 text-white">
                 <div className="flex justify-between items-start">
                   <div>
@@ -693,7 +691,7 @@ export default function BillingPage() {
               </div>
               
               <div className="p-6 space-y-5 text-slate-800">
-                {/* Bill To */}
+                {}
                 <div className="grid grid-cols-2 gap-4 border-b border-slate-100 pb-4">
                   <div>
                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Bill To</p>
@@ -708,7 +706,7 @@ export default function BillingPage() {
                   </div>
                 </div>
 
-                {/* Items Table */}
+                {}
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
                     <tr className="border-b border-slate-200">
@@ -730,7 +728,7 @@ export default function BillingPage() {
                   </tbody>
                 </table>
 
-                {/* Totals */}
+                {}
                 <div className="flex justify-end pt-4 border-t border-slate-100">
                   <div className="w-64 space-y-2.5 text-xs text-slate-600">
                     <div className="flex justify-between">
@@ -754,7 +752,7 @@ export default function BillingPage() {
               </div>
             </div>
 
-            {/* In-Modal Controls */}
+            {}
             <div className="flex items-center gap-2 border-t border-border pt-4 justify-between">
               <span className="text-xs text-muted-foreground font-semibold">Change status state:</span>
               <div className="flex gap-1 flex-wrap">

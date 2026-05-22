@@ -5,15 +5,15 @@ import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   LayoutDashboard, ShoppingBag, MessageSquare, FileText, Users,
-  BarChart3, Settings, ChevronLeft, Zap, Package, ClipboardList,
-  UserCheck, Bell, ChevronDown, Store, Building2, LogOut,
-  HelpCircle, Sparkles, Wifi, Circle
+  BarChart3, Settings, ChevronLeft, Package, ClipboardList,
+  UserCheck, ChevronDown, Store, Building2, LogOut,
+  HelpCircle, Sparkles
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAppStore } from '@/store/useAppStore'
 import { useState } from 'react'
 
-// ─── Nav structure ────────────────────────────────────────
+
 const navSections = [
   {
     label: 'Main',
@@ -47,7 +47,7 @@ const workspaces = [
   { id: 'cakehouse', name: 'CakeHouse Delhi',  plan: 'Starter', color: 'bg-violet-600' },
 ]
 
-// ─── Tooltip for collapsed state ──────────────────────────
+
 function NavTooltip({ label, children }: { label: string; children: React.ReactNode }) {
   const [show, setShow] = useState(false)
   return (
@@ -77,7 +77,7 @@ function NavTooltip({ label, children }: { label: string; children: React.ReactN
   )
 }
 
-// ─── Main Sidebar ──────────────────────────────────────────
+
 export function Sidebar() {
   const pathname = usePathname()
   const { sidebarOpen, toggleSidebar } = useAppStore()
@@ -91,7 +91,7 @@ export function Sidebar() {
       transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
       className="hidden lg:flex flex-col h-screen sidebar-glass fixed left-0 top-0 z-30 overflow-hidden select-none"
     >
-      {/* ── Workspace Switcher ─────────────────────────────── */}
+      {}
       <div className="px-3 pt-4 pb-3 border-b border-border/60">
         <motion.button
           onClick={() => sidebarOpen && setWsOpen(!wsOpen)}
@@ -134,7 +134,7 @@ export function Sidebar() {
           </AnimatePresence>
         </motion.button>
 
-        {/* Workspace Dropdown */}
+        {}
         <AnimatePresence>
           {wsOpen && sidebarOpen && (
             <motion.div
@@ -181,11 +181,11 @@ export function Sidebar() {
         </AnimatePresence>
       </div>
 
-      {/* ── Navigation ────────────────────────────────────── */}
+      {}
       <nav className="flex-1 py-3 px-3 overflow-y-auto scrollbar-thin space-y-0.5">
         {navSections.map((section, si) => (
           <div key={section.label} className={cn(si > 0 && 'mt-4')}>
-            {/* Section Label */}
+            {}
             <AnimatePresence>
               {sidebarOpen && (
                 <motion.p
@@ -203,7 +203,7 @@ export function Sidebar() {
               <div className="h-px bg-border/60 my-2 mx-2" />
             )}
 
-            {/* Nav Items */}
+            {}
             <div className="space-y-0.5">
               {section.items.map((item) => {
                 const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
@@ -221,7 +221,7 @@ export function Sidebar() {
                           : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
                       )}
                     >
-                      {/* Active left bar */}
+                      {}
                       {isActive && (
                         <motion.div
                           layoutId="sidebarActive"
@@ -230,7 +230,7 @@ export function Sidebar() {
                         />
                       )}
 
-                      {/* Icon wrapper */}
+                      {}
                       <div className="relative flex-shrink-0">
                         <Icon className={cn(
                           'w-[18px] h-[18px] transition-colors',
@@ -238,13 +238,13 @@ export function Sidebar() {
                             ? 'text-brand-600 dark:text-brand-400'
                             : 'text-muted-foreground group-hover:text-foreground'
                         )} />
-                        {/* Live dot */}
+                        {}
                         {item.live && (
                           <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-emerald-500 ring-1 ring-background" />
                         )}
                       </div>
 
-                      {/* Label + badge */}
+                      {}
                       <AnimatePresence>
                         {sidebarOpen && (
                           <motion.div
@@ -378,7 +378,7 @@ export function Sidebar() {
           </AnimatePresence>
         </div>
 
-        {/* Collapse toggle */}
+        {}
         <button
           onClick={toggleSidebar}
           className={cn(

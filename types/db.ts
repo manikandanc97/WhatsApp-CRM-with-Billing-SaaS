@@ -32,6 +32,8 @@ export interface BillItem {
   total: number;
 }
 
+
+
 export interface Bill {
   id: string;
   customerId: string | null;

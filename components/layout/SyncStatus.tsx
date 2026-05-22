@@ -32,7 +32,7 @@ export function SyncStatus() {
     }
   }, [isOnline, syncLock, setSyncing, setPendingCount, setLastSyncTime])
 
-  // Status config
+  
   const status = isSyncing
     ? { label: 'Syncing', color: 'text-amber-500', dot: 'bg-amber-400', ring: 'ring-amber-400/30' }
     : isOnline
@@ -41,7 +41,7 @@ export function SyncStatus() {
 
   return (
     <div className="relative">
-      {/* Pill trigger */}
+      {}
       <motion.button
         whileTap={{ scale: 0.95 }}
         onClick={() => setShowPanel((v) => !v)}
@@ -51,7 +51,7 @@ export function SyncStatus() {
           isOnline ? 'border-emerald-500/20' : 'border-rose-500/20'
         )}
       >
-        {/* Animated status dot */}
+        {}
         <span className="relative flex h-2 w-2">
           <span className={cn(
             'animate-ping absolute inline-flex h-full w-full rounded-full opacity-60',
@@ -84,7 +84,7 @@ export function SyncStatus() {
         )}
       </motion.button>
 
-      {/* Dropdown panel */}
+      {}
       <AnimatePresence>
         {showPanel && (
           <>
@@ -96,7 +96,7 @@ export function SyncStatus() {
               transition={{ duration: 0.15 }}
               className="absolute right-0 top-full mt-2 w-72 bg-card border border-border rounded-2xl shadow-elevated z-40 overflow-hidden"
             >
-              {/* Header */}
+              {}
               <div className={cn(
                 'px-4 py-3 border-b border-border flex items-center gap-3',
                 isOnline ? 'bg-emerald-50/50 dark:bg-emerald-950/20' : 'bg-rose-50/50 dark:bg-rose-950/20'
@@ -122,7 +122,7 @@ export function SyncStatus() {
                 </div>
               </div>
 
-              {/* Stats */}
+              {}
               <div className="px-4 py-3 space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-muted-foreground">Pending sync items</span>
@@ -156,7 +156,7 @@ export function SyncStatus() {
                 </div>
               </div>
 
-              {/* Manual sync button */}
+              {}
               <div className="px-4 pb-3">
                 <button
                   onClick={handleManualSync}

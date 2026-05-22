@@ -1,7 +1,7 @@
 import Dexie, { Table } from 'dexie';
 import { Customer, Product, Bill, SyncAction } from '@/types/db';
 
-export class SweetFlowDatabase extends Dexie {
+class SweetFlowDatabase extends Dexie {
   customers!: Table<Customer, string>;
   products!: Table<Product, string>;
   bills!: Table<Bill, string>;

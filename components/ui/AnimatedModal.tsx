@@ -14,10 +14,8 @@ interface AnimatedModalProps {
   children: React.ReactNode
   size?: 'sm' | 'md' | 'lg' | 'xl' | 'full'
   className?: string
-  /** Optional icon element shown beside the title */
-  icon?: React.ReactNode
-  /** Show a colored gradient top-bar accent (default: true) */
-  accent?: boolean
+    icon?: React.ReactNode
+    accent?: boolean
 }
 
 const sizeClasses = {
@@ -99,12 +97,12 @@ export function AnimatedModal({
               className,
             )}
           >
-            {/* Gradient top accent bar */}
+            {}
             {accent && (
               <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-brand-500 via-violet-500 to-brand-500 opacity-80 rounded-t-2xl pointer-events-none" />
             )}
 
-            {/* Header */}
+            {}
             {(title || description) && (
               <div className="flex items-start justify-between px-6 pt-5 pb-4 border-b border-border/60 flex-shrink-0 bg-gradient-to-b from-muted/30 to-transparent">
                 <div className="flex items-start gap-3 flex-1 min-w-0 pr-4">
@@ -132,7 +130,7 @@ export function AnimatedModal({
               </div>
             )}
 
-            {/* Scrollable content */}
+            {}
             <div className="overflow-y-auto flex-1 scrollbar-thin">
               {children}
             </div>

@@ -3,30 +3,22 @@ import { SyncAction } from '@/types/db'
 
 const MAX_RETRIES = 3
 
-/**
- * Simulates a cloud API push. In production, replace with real fetch() calls.
- */
-async function pushToCloud(action: SyncAction): Promise<void> {
-  // Simulate network latency
+async function pushToCloud(_action: SyncAction): Promise<void> {
   await new Promise((res) => setTimeout(res, 200 + Math.random() * 300))
 
-  // Simulate occasional failure (5% chance) for realism
   if (Math.random() < 0.05) {
     throw new Error('Simulated cloud sync error')
   }
 
-  // In production:
-  // const res = await fetch(`/api/${action.entity.toLowerCase()}s`, {
-  //   method: action.action === 'CREATE' ? 'POST' : action.action === 'UPDATE' ? 'PUT' : 'DELETE',
-  //   headers: { 'Content-Type': 'application/json' },
-  //   body: JSON.stringify(action.payload),
-  // })
-  // if (!res.ok) throw new Error(await res.text())
+  
+  
+  
+  
+  
+  
+  
 }
 
-/**
- * Mark a specific entity as synced in its table.
- */
 async function markEntitySynced(entity: SyncAction['entity'], id: string) {
   switch (entity) {
     case 'BILL':
@@ -41,10 +33,6 @@ async function markEntitySynced(entity: SyncAction['entity'], id: string) {
   }
 }
 
-/**
- * Process all pending items in the sync queue.
- * Returns the number of successfully synced items.
- */
 export async function processSyncQueue(
   onProgress?: (synced: number, total: number) => void
 ): Promise<{ synced: number; failed: number }> {
@@ -61,15 +49,15 @@ export async function processSyncQueue(
   for (const action of pending) {
     try {
       await pushToCloud(action)
-      // Mark entity as synced in its table
+      
       await markEntitySynced(action.entity, action.entityId)
-      // Remove from queue on success
+      
       await db.syncQueue.delete(action.id)
       synced++
     } catch (err) {
       const retryCount = (action.retryCount || 0) + 1
       if (retryCount >= MAX_RETRIES) {
-        // Mark as permanently failed
+        
         await db.syncQueue.update(action.id, {
           status: 'FAILED',
           retryCount,
@@ -77,7 +65,7 @@ export async function processSyncQueue(
         })
         failed++
       } else {
-        // Increment retry count, keep as PENDING for next attempt
+        
         await db.syncQueue.update(action.id, {
           retryCount,
           error: err instanceof Error ? err.message : 'Unknown error',
@@ -90,9 +78,6 @@ export async function processSyncQueue(
   return { synced, failed }
 }
 
-/**
- * Queue an action in the sync queue for deferred cloud sync.
- */
 export async function queueSyncAction(
   action: SyncAction['action'],
   entity: SyncAction['entity'],
@@ -112,9 +97,6 @@ export async function queueSyncAction(
   await db.syncQueue.add(syncAction)
 }
 
-/**
- * Get current pending sync count.
- */
 export async function getPendingSyncCount(): Promise<number> {
   return db.syncQueue.where('status').equals('PENDING').count()
 }

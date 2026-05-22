@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { UserCheck, Plus, Search, MoreHorizontal, Shield, Clock, Mail, Phone } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Plus, Search, MoreHorizontal, Clock, Mail } from 'lucide-react'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { cn } from '@/lib/utils'
 import toast from 'react-hot-toast'
@@ -41,10 +41,10 @@ export default function StaffPage() {
     <div className="space-y-6 page-wrapper">
       <PageHeader title="Staff" description="Manage your team members and their roles" />
 
-      {/* Header actions */}
+      {}
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div className="flex items-center gap-3">
-          {/* Stats */}
+          {}
           {[
             { label: 'Active', count: staffMembers.filter(s => s.status === 'active').length, color: 'text-emerald-600' },
             { label: 'Away',   count: staffMembers.filter(s => s.status === 'away').length,   color: 'text-amber-600' },
@@ -70,7 +70,7 @@ export default function StaffPage() {
         </div>
       </div>
 
-      {/* Grid */}
+      {}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {filtered.map((staff, i) => {
           const sc = statusConfig[staff.status as keyof typeof statusConfig]
@@ -82,7 +82,7 @@ export default function StaffPage() {
               transition={{ delay: i * 0.07 }}
               className="bg-card border border-border rounded-2xl p-5 shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5 group"
             >
-              {/* Header */}
+              {}
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <div className="relative">
@@ -104,7 +104,7 @@ export default function StaffPage() {
                 </button>
               </div>
 
-              {/* Details */}
+              {}
               <div className="space-y-2 mb-4">
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <Mail className="w-3.5 h-3.5 flex-shrink-0" />
@@ -116,7 +116,7 @@ export default function StaffPage() {
                 </div>
               </div>
 
-              {/* Footer */}
+              {}
               <div className="flex items-center justify-between pt-3 border-t border-border/60">
                 <div className="flex items-center gap-1.5">
                   <div className={cn('w-1.5 h-1.5 rounded-full', sc.dot)} />
@@ -131,7 +131,7 @@ export default function StaffPage() {
           )
         })}
 
-        {/* Add new card */}
+        {}
         <motion.button
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}

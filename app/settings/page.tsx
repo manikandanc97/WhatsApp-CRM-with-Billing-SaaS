@@ -4,8 +4,8 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Store, MessageSquare, Palette, Bell, Users, CreditCard,
-  Save, Check, ChevronRight, Wifi, WifiOff, QrCode,
-  Shield, Sun, Moon, Monitor, Plus, Trash2
+  Save, Check, Wifi, WifiOff, QrCode,
+  Shield, Sun, Moon, Monitor, Plus
 } from 'lucide-react'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { useAppStore } from '@/store/useAppStore'
@@ -126,7 +126,7 @@ export default function SettingsPage() {
       />
 
       <div className="flex gap-6">
-        {/* Tab List */}
+        {}
         <div className="hidden md:flex flex-col gap-1 w-52 flex-shrink-0">
           {TABS.map(tab => {
             const Icon = tab.icon
@@ -148,7 +148,7 @@ export default function SettingsPage() {
           })}
         </div>
 
-        {/* Mobile Tabs */}
+        {}
         <div className="flex md:hidden gap-1 overflow-x-auto scrollbar-thin pb-1 w-full">
           {TABS.map(tab => {
             const Icon = tab.icon
@@ -168,7 +168,7 @@ export default function SettingsPage() {
           })}
         </div>
 
-        {/* Tab Content */}
+        {}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
@@ -214,7 +214,7 @@ export default function SettingsPage() {
             {activeTab === 'whatsapp' && (
               <SectionCard title="WhatsApp Integration" description="Connect your WhatsApp Business account">
                 <div className="space-y-5">
-                  {/* Connection Status */}
+                  {}
                   <div className={cn(
                     'flex items-center gap-4 p-4 rounded-xl border',
                     s.whatsappConnected
@@ -245,7 +245,7 @@ export default function SettingsPage() {
                     </button>
                   </div>
 
-                  {/* QR Code Mock */}
+                  {}
                   {!s.whatsappConnected && (
                     <div className="flex flex-col items-center gap-3 p-6 bg-muted/50 rounded-xl border border-dashed border-border">
                       <QrCode className="w-24 h-24 text-muted-foreground/40" />
@@ -253,7 +253,7 @@ export default function SettingsPage() {
                     </div>
                   )}
 
-                  {/* AI Settings */}
+                  {}
                   <div className="space-y-3">
                     {[
                       { label: 'AI Auto-Reply', desc: 'Automatically respond to customer messages using AI' },

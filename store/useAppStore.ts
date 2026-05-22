@@ -9,7 +9,7 @@ import ordersData from '@/data/orders.json'
 import customersData from '@/data/customers.json'
 import messagesData from '@/data/messages.json'
 
-// ─── Orders Slice ─────────────────────────────────────────────────────────────
+
 interface OrdersSlice {
   orders: Order[]
   setOrders: (orders: Order[]) => void
@@ -18,7 +18,7 @@ interface OrdersSlice {
   deleteOrder: (id: string) => void
 }
 
-// ─── Customers Slice ──────────────────────────────────────────────────────────
+
 interface CustomersSlice {
   customers: Customer[]
   setCustomers: (customers: Customer[]) => void
@@ -27,7 +27,7 @@ interface CustomersSlice {
   deleteCustomer: (id: string) => void
 }
 
-// ─── Chat Slice ───────────────────────────────────────────────────────────────
+
 interface ChatSlice {
   chats: Chat[]
   activeChatId: string | null
@@ -39,7 +39,7 @@ interface ChatSlice {
   setTyping: (typing: boolean) => void
 }
 
-// ─── Invoice Slice ────────────────────────────────────────────────────────────
+
 interface InvoiceSlice {
   invoices: Invoice[]
   addInvoice: (invoice: Invoice) => void
@@ -47,13 +47,13 @@ interface InvoiceSlice {
   deleteInvoice: (id: string) => void
 }
 
-// ─── Settings Slice ───────────────────────────────────────────────────────────
+
 interface SettingsSlice {
   settings: ShopSettings
   updateSettings: (updates: Partial<ShopSettings>) => void
 }
 
-// ─── UI Slice ─────────────────────────────────────────────────────────────────
+
 interface UISlice {
   sidebarOpen: boolean
   activeModal: string | null
@@ -64,7 +64,7 @@ interface UISlice {
   setTheme: (theme: 'light' | 'dark' | 'system') => void
 }
 
-// ─── Auth Slice ───────────────────────────────────────────────────────────────
+
 interface AuthSlice {
   user: { name: string; email: string; role: string; avatar?: string } | null
   token: string | null
@@ -79,7 +79,7 @@ interface AuthSlice {
   resetPassword: (password: string) => Promise<void>
 }
 
-// ─── Combined Store ───────────────────────────────────────────────────────────
+
 type AppStore = OrdersSlice & CustomersSlice & ChatSlice & InvoiceSlice & SettingsSlice & UISlice & AuthSlice
 
 const defaultSettings: ShopSettings = {
@@ -104,7 +104,7 @@ const defaultSettings: ShopSettings = {
 export const useAppStore = create<AppStore>()(
   persist(
     (set, get) => ({
-      // Orders
+      
       orders: ordersData as any,
       setOrders: (orders) => set({ orders }),
       addOrder: (order) => set((s) => ({ orders: [order, ...s.orders] })),
@@ -115,7 +115,7 @@ export const useAppStore = create<AppStore>()(
       deleteOrder: (id) =>
         set((s) => ({ orders: s.orders.filter((o) => o.id !== id) })),
 
-      // Customers
+      
       customers: customersData as any,
       setCustomers: (customers) => set({ customers }),
       addCustomer: (customer) =>
@@ -127,7 +127,7 @@ export const useAppStore = create<AppStore>()(
       deleteCustomer: (id) =>
         set((s) => ({ customers: s.customers.filter((c) => c.id !== id) })),
 
-      // Chats
+      
       chats: messagesData as any,
       activeChatId: null,
       isTyping: false,
@@ -160,7 +160,7 @@ export const useAppStore = create<AppStore>()(
         })),
       setTyping: (typing) => set({ isTyping: typing }),
 
-      // Invoices
+      
       invoices: [],
       addInvoice: (invoice) =>
         set((s) => ({ invoices: [invoice, ...s.invoices] })),
@@ -171,12 +171,12 @@ export const useAppStore = create<AppStore>()(
       deleteInvoice: (id) =>
         set((s) => ({ invoices: s.invoices.filter((i) => i.id !== id) })),
 
-      // Settings
+      
       settings: defaultSettings,
       updateSettings: (updates) =>
         set((s) => ({ settings: { ...s.settings, ...updates } })),
 
-      // UI
+      
       sidebarOpen: true,
       activeModal: null,
       theme: 'light',
@@ -185,7 +185,7 @@ export const useAppStore = create<AppStore>()(
       setActiveModal: (modal) => set({ activeModal: modal }),
       setTheme: (theme) => set({ theme }),
 
-      // Auth
+      
       user: null,
       token: null,
       otpSentEmail: null,

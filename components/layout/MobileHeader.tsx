@@ -1,11 +1,11 @@
 'use client'
 
-import { Bell, Search, Wifi, WifiOff, RefreshCw, Cloud, CloudOff, CheckCircle2, ChevronDown, User, Database } from 'lucide-react'
+import { Bell, Search, Wifi, WifiOff, RefreshCw, Cloud, CloudOff, CheckCircle2, ChevronDown, Database } from 'lucide-react'
 import { useAppStore } from '@/store/useAppStore'
 import { useOfflineStore } from '@/store/offline'
 import { processSyncQueue, getPendingSyncCount } from '@/services/sync/engine'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import { formatDistanceToNow } from 'date-fns'
 import toast from 'react-hot-toast'
 import { cn } from '@/lib/utils'
@@ -36,7 +36,7 @@ export function MobileHeader() {
     }
   }, [isOnline, syncLock, setSyncing, setPendingCount, setLastSyncTime])
 
-  // Get current status styles
+  
   const statusColorClass = isSyncing
     ? 'bg-amber-500'
     : isOnline
@@ -64,7 +64,7 @@ export function MobileHeader() {
                 className="w-full h-full object-cover" 
               />
             </div>
-            {/* Connection state dot */}
+            {}
             <span className="absolute bottom-0 right-0 flex h-3 w-3">
               {isSyncing && (
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
@@ -86,9 +86,9 @@ export function MobileHeader() {
           </div>
         </div>
 
-        {/* Action icons on right */}
+        {}
         <div className="flex items-center gap-2">
-          {/* Quick sync indicator if pending items */}
+          {}
           {pendingSyncCount > 0 && (
             <motion.button 
               initial={{ scale: 0 }}
@@ -123,11 +123,11 @@ export function MobileHeader() {
         </div>
       </header>
 
-      {/* Connection / Sync Status Panel */}
+      {}
       <AnimatePresence>
         {showStatusPanel && (
           <>
-            {/* Backdrop click dismisser */}
+            {}
             <div 
               className="fixed inset-0 z-40 bg-black/5 dark:bg-black/20 backdrop-blur-[2px]" 
               onClick={() => setShowStatusPanel(false)} 
@@ -140,10 +140,10 @@ export function MobileHeader() {
               transition={{ type: "spring", damping: 25, stiffness: 350 }}
               className="fixed top-[80px] left-4 right-4 z-50 bg-card/95 backdrop-blur-xl border border-border/40 dark:border-white/5 rounded-3xl shadow-xl overflow-hidden max-w-sm mx-auto"
             >
-              {/* Top gradient accent */}
+              {}
               <div className="h-1.5 w-full bg-gradient-to-r from-brand-500 via-violet-500 to-amber-500" />
               
-              {/* Header Status Bar */}
+              {}
               <div className={cn(
                 'p-4 border-b border-border/30 flex items-center gap-3',
                 isOnline ? 'bg-emerald-50/50 dark:bg-emerald-950/10' : 'bg-rose-50/50 dark:bg-rose-950/10'
@@ -170,7 +170,7 @@ export function MobileHeader() {
                 </div>
               </div>
 
-              {/* Status details list */}
+              {}
               <div className="p-4 space-y-3.5">
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-muted-foreground flex items-center gap-2">
@@ -214,7 +214,7 @@ export function MobileHeader() {
                 </div>
               </div>
 
-              {/* Action trigger button */}
+              {}
               <div className="px-4 pb-4">
                 <button
                   onClick={handleManualSync}
