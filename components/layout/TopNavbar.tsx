@@ -78,7 +78,26 @@ export function TopNavbar() {
   const [cmdQuery, setCmdQuery] = useState('')
   const [notifications, setNotifications] = useState(fakeNotifications)
   const cmdRef = useRef<HTMLInputElement>(null)
+  const createRef = useRef<HTMLDivElement>(null)
+  const notifRef = useRef<HTMLDivElement>(null)
+  const userRef = useRef<HTMLDivElement>(null)
   const unreadCount = notifications.filter(n => !n.read).length
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (createOpen && createRef.current && !createRef.current.contains(e.target as Node)) {
+        setCreateOpen(false)
+      }
+      if (notifOpen && notifRef.current && !notifRef.current.contains(e.target as Node)) {
+        setNotifOpen(false)
+      }
+      if (userOpen && userRef.current && !userRef.current.contains(e.target as Node)) {
+        setUserOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [createOpen, notifOpen, userOpen])
 
   // Breadcrumbs
   const segments = pathname.split('/').filter(Boolean)
@@ -134,7 +153,7 @@ export function TopNavbar() {
 
   return (
     <>
-      <header className="h-16 topbar-glass sticky top-0 z-20 flex items-center justify-between px-4 md:px-6">
+      <header className="h-16 topbar-glass sticky top-0 z-40 flex items-center justify-between px-4 md:px-6">
         {}
         <div className="flex items-center gap-3">
           <button
@@ -198,7 +217,7 @@ export function TopNavbar() {
           </button>
 
           {}
-          <div className="relative">
+          <div className="relative" ref={createRef}>
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={() => { setCreateOpen(!createOpen); setNotifOpen(false); setUserOpen(false) }}
@@ -212,9 +231,7 @@ export function TopNavbar() {
             </motion.button>
             <AnimatePresence>
               {createOpen && (
-                <>
-                  <div className="fixed inset-0 z-30" onClick={() => setCreateOpen(false)} />
-                  <motion.div
+                <motion.div
                     initial={{ opacity: 0, scale: 0.95, y: -8 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95, y: -8 }}
@@ -236,7 +253,6 @@ export function TopNavbar() {
                       )
                     })}
                   </motion.div>
-                </>
               )}
             </AnimatePresence>
           </div>
@@ -263,7 +279,7 @@ export function TopNavbar() {
           )}
 
           {}
-          <div className="relative">
+          <div className="relative" ref={notifRef}>
             <motion.button
               whileTap={{ scale: 0.92 }}
               onClick={() => { setNotifOpen(!notifOpen); setUserOpen(false); setCreateOpen(false) }}
@@ -286,9 +302,7 @@ export function TopNavbar() {
 
             <AnimatePresence>
               {notifOpen && (
-                <>
-                  <div className="fixed inset-0 z-30" onClick={() => setNotifOpen(false)} />
-                  <motion.div
+                <motion.div
                     initial={{ opacity: 0, scale: 0.95, y: -8 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95, y: -8 }}
@@ -336,13 +350,12 @@ export function TopNavbar() {
                       </button>
                     </div>
                   </motion.div>
-                </>
               )}
             </AnimatePresence>
           </div>
 
           {}
-          <div className="relative">
+          <div className="relative" ref={userRef}>
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={() => { setUserOpen(!userOpen); setNotifOpen(false); setCreateOpen(false) }}
@@ -362,9 +375,7 @@ export function TopNavbar() {
 
             <AnimatePresence>
               {userOpen && (
-                <>
-                  <div className="fixed inset-0 z-30" onClick={() => setUserOpen(false)} />
-                  <motion.div
+                <motion.div
                     initial={{ opacity: 0, scale: 0.95, y: -8 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95, y: -8 }}
@@ -402,7 +413,6 @@ export function TopNavbar() {
                       </button>
                     </div>
                   </motion.div>
-                </>
               )}
             </AnimatePresence>
           </div>

@@ -59,7 +59,18 @@ export function MobileHeader() {
   const [cmdQuery, setCmdQuery] = useState('')
   const [notifications, setNotifications] = useState(fakeNotifications)
   const cmdRef = useRef<HTMLInputElement>(null)
+  const notifRef = useRef<HTMLDivElement>(null)
   const unreadCount = notifications.filter(n => !n.read).length
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (notifOpen && notifRef.current && !notifRef.current.contains(e.target as Node)) {
+        setNotifOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [notifOpen])
 
   function markAllRead() {
     setNotifications(n => n.map(x => ({ ...x, read: true })))
@@ -171,7 +182,7 @@ export function MobileHeader() {
             <Search className="w-[18px] h-[18px]" />
           </motion.button>
           
-          <div className="relative">
+          <div className="relative" ref={notifRef}>
             <motion.button 
               whileTap={{ scale: 0.9 }} 
               onClick={() => { setNotifOpen(!notifOpen); setShowStatusPanel(false); setCmdOpen(false); }}
@@ -184,9 +195,7 @@ export function MobileHeader() {
             </motion.button>
             <AnimatePresence>
               {notifOpen && (
-                <>
-                  <div className="fixed inset-0 z-30" onClick={() => setNotifOpen(false)} />
-                  <motion.div
+                <motion.div
                     initial={{ opacity: 0, scale: 0.95, y: -8 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95, y: -8 }}
@@ -234,7 +243,6 @@ export function MobileHeader() {
                       </button>
                     </div>
                   </motion.div>
-                </>
               )}
             </AnimatePresence>
           </div>
