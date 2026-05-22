@@ -166,6 +166,27 @@ export default function WhatsAppPage() {
     endRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [chats, activeChatId, isTyping])
 
+  // Handle mobile hardware back button
+  useEffect(() => {
+    if (!activeChatId) return
+
+    // When chat opens on mobile, push a new state to intercept hardware back button
+    if (window.innerWidth < 1024) {
+      window.history.pushState({ isChatOpen: true }, '')
+    }
+
+    const handlePopState = () => {
+      if (activeChatId) {
+        setActiveChat(null)
+      }
+    }
+
+    window.addEventListener('popstate', handlePopState)
+    return () => {
+      window.removeEventListener('popstate', handlePopState)
+    }
+  }, [activeChatId, setActiveChat])
+
     useEffect(() => {
     const el = taRef.current
     if (!el) return
@@ -364,7 +385,13 @@ export default function WhatsAppPage() {
             {}
             <div className="relative z-20 flex items-center gap-2.5 px-3 py-2.5 border-b border-border bg-card/92 backdrop-blur-xl shadow-sm flex-shrink-0">
               <button
-                onClick={() => setActiveChat(null)}
+                onClick={() => {
+                  if (window.history.state?.isChatOpen) {
+                    window.history.back()
+                  } else {
+                    setActiveChat(null)
+                  }
+                }}
                 className="lg:hidden -ml-1 w-9 h-9 flex items-center justify-center rounded-full text-muted-foreground hover:bg-muted active:bg-muted/80 transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
